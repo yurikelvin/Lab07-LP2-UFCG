@@ -2,11 +2,12 @@ package jogos;
 
 import java.util.HashSet;
 
-public class Usuario {
+public abstract class Usuario {
 	
 	private String nome;
 	private String login;
 	private double qtdDinheiroDisponivel;
+
 	
 	private HashSet<Jogo> meusJogos;
 	
@@ -16,20 +17,9 @@ public class Usuario {
 		this.login = login;
 		this.qtdDinheiroDisponivel = 0.0;
 		this.meusJogos = new HashSet<>();
+
 	}
 	
-	public boolean compraJogo(Jogo jogoAComprar) {
-		if(this.getQtdDinheiroDisponivel() >= jogoAComprar.getPreco()) {
-			this.descontaDinheiro(jogoAComprar.getPreco());
-			return meusJogos.add(jogoAComprar);
-		}
-		
-		return false;
-		
-		
-		
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -45,6 +35,7 @@ public class Usuario {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+	
 
 	public double getQtdDinheiroDisponivel() {
 		return qtdDinheiroDisponivel;
@@ -58,7 +49,15 @@ public class Usuario {
 		this.qtdDinheiroDisponivel -= (valor < 0) ? 0 : valor;
 	}
 	
+	public abstract boolean compraJogo(Jogo jogoAComprar);	
 	
+	public boolean adicionaJogo(Jogo jogoAAdicionar) {
+		return meusJogos.add(jogoAAdicionar);
+	}
+	
+	public HashSet<Jogo> showGames() {
+		return meusJogos;
+	}
 	
 	
 	
