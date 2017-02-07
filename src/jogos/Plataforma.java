@@ -18,16 +18,6 @@ public class Plataforma extends Jogo {
 		return 0;
 	}
 
-	@Override
-	public void setJogabilidade(Jogabilidade jogabilidade) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public Jogabilidade getJogabilidade(Jogabilidade jogabilidade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
