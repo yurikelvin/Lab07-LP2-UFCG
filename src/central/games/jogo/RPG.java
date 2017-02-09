@@ -1,18 +1,19 @@
 package central.games.jogo;
 
+import exception.ValidacaoException;
 import validacao.Validacao;
 
 public class RPG extends Jogo{
 	
 	
 
-	public RPG(String nome, int preco) throws Exception {
+	public RPG(String nome, int preco) throws ValidacaoException {
 		super(nome, preco);
 
 	}
 
 	@Override
-	public int registraJogada(int score, boolean zerou) throws Exception{
+	public int registraJogada(int score, boolean zerou) throws ValidacaoException{
 
 		Validacao.validaInt(score, "Score nao pode ser negativo");
 		

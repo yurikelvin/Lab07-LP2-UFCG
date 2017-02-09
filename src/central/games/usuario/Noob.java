@@ -1,18 +1,21 @@
 package central.games.usuario;
 
+import java.util.MissingResourceException;
+
 import central.games.jogo.Jogo;
+import exception.ValidacaoException;
 import validacao.Validacao;
 
 public class Noob extends Usuario {
 
-	public Noob(String nome, String login) throws Exception{
+	public Noob(String nome, String login) throws ValidacaoException{
 		
 		super(nome, login);
 
 	}
 
 	@Override
-	public boolean compraJogo(Jogo jogoAComprar) throws Exception{
+	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException{
 		
 		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
 		
@@ -22,7 +25,7 @@ public class Noob extends Usuario {
 			return super.adicionaJogo(jogoAComprar);
 		}
 		
-		return false;
+		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");
 	}
 
 	@Override

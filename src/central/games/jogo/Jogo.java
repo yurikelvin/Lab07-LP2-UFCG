@@ -2,6 +2,7 @@ package central.games.jogo;
 
 import java.util.HashSet;
 
+import exception.ValidacaoException;
 import validacao.Validacao;
 
 /**
@@ -26,10 +27,10 @@ public abstract class Jogo {
 	 * Cria um novo Jogo com o nome e preco especificado.
 	 * @param nome  o nome do Jogo.
 	 * @param preco  o preco do Jogo.
-	 * @throws Exception  Se nome for nulo ou vazio ou preco for menor ou igual a 0.
+	 * @throws ValidacaoException  Se nome for nulo ou vazio ou preco for menor ou igual a 0.
 	 */
 	
-	public Jogo(String nome, int preco) throws Exception{
+	public Jogo(String nome, int preco) throws ValidacaoException{
 		
 		Validacao.validaString(nome, "Nome do jogo nao pode ser nulo ou vazio");
 		Validacao.validaInt(preco, "Preco do jogo nao pode ser negativo");
@@ -60,10 +61,10 @@ public abstract class Jogo {
 	/**
 	 * Modifica o preco atual do Jogo.
 	 * @param preco  novo preco a ser definido.
-	 * @throws Exception  Se preco for menor que zero.
+	 * @throws ValidacaoException  Se preco for menor que zero.
 	 */
 
-	public void setPreco(int preco) throws Exception {
+	public void setPreco(int preco) throws ValidacaoException {
 		
 		Validacao.validaInt(preco, "Preco do jogo nao pode ser negativo");
 		
@@ -84,10 +85,10 @@ public abstract class Jogo {
 	 * Modifica a maior pontuacao atual feita pelos jogadores dentro do Jogo.
 	 * 
 	 * @param maiorScore  maior pontuacao feita.
-	 * @throws Exception  se maiorScore for menor que zero.
+	 * @throws ValidacaoException  se maiorScore for menor que zero.
 	 */
 
-	public void setMaiorScore(int maiorScore) throws Exception{
+	public void setMaiorScore(int maiorScore) throws ValidacaoException{
 
 		Validacao.validaInt(maiorScore, "Score precisa ser maior que 0");
 		
@@ -129,7 +130,7 @@ public abstract class Jogo {
 	 * @throws Exception  Se jogabilidade for nulo.
 	 */
 	
-	public boolean adicionaJogabilidade(Jogabilidade jogabilidade) throws Exception {
+	public boolean adicionaJogabilidade(Jogabilidade jogabilidade) throws ValidacaoException {
 
 		Validacao.validaObj(jogabilidade, "Tipo de jogabilidade nao pode ser nulo");
 		
@@ -155,7 +156,7 @@ public abstract class Jogo {
 	 * @throws Exception Se score for menor que zero.
 	 */
 	
-	public abstract int registraJogada(int score, boolean zerou) throws Exception;
+	public abstract int registraJogada(int score, boolean zerou) throws ValidacaoException;
 
 
 	

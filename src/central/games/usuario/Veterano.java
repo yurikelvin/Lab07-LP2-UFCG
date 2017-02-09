@@ -2,15 +2,17 @@ package central.games.usuario;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.MissingResourceException;
 
 import central.games.jogo.Jogabilidade;
 import central.games.jogo.Jogo;
 import central.games.jogo.RPG;
+import exception.ValidacaoException;
 import validacao.Validacao;
 
 public class Veterano extends Usuario {
 
-	public Veterano(String nome, String login) throws Exception{
+	public Veterano(String nome, String login) throws ValidacaoException{
 		
 		super(nome, login);
 		super.adicionaX2p(1000);
@@ -18,7 +20,7 @@ public class Veterano extends Usuario {
 	}
 	
 	@Override
-	public boolean compraJogo(Jogo jogoAComprar) throws Exception {
+	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
 
 		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
 		
@@ -29,7 +31,7 @@ public class Veterano extends Usuario {
 				return super.adicionaJogo(jogoAComprar);
 		}
 		
-		return false;
+		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");
 	}
 
 	@Override

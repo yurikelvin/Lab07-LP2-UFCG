@@ -2,8 +2,10 @@ package central.games.usuario;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.MissingResourceException;
 
 import central.games.jogo.Jogo;
+import exception.ValidacaoException;
 import validacao.Validacao;
 
 public abstract class Usuario {
@@ -18,7 +20,7 @@ public abstract class Usuario {
 	
 	private HashSet<Jogo> meusJogos;
 	
-	public Usuario(String nome, String login) throws Exception {
+	public Usuario(String nome, String login) throws ValidacaoException {
 		
 		Validacao.validaString(nome, "Nome de usuario nao pode ser vazio ou nulo");
 		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo");
@@ -35,7 +37,7 @@ public abstract class Usuario {
 		return nome;
 	}
 
-	public void setNome(String nome) throws Exception {
+	public void setNome(String nome) throws ValidacaoException {
 		
 		Validacao.validaString(nome, "Nome de usuario nao pode ser vazio ou nulo");
 		
@@ -58,7 +60,7 @@ public abstract class Usuario {
 		this.qtdDinheiroDisponivel -= (valor < 0) ? 0 : valor;
 	}
 	
-	public boolean compraJogo(Jogo jogoAComprar) throws Exception {
+	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
 
 		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
 		
@@ -67,7 +69,7 @@ public abstract class Usuario {
 			return this.adicionaJogo(jogoAComprar);
 		}
 		
-		return false;
+		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");
 	}
 	
 	public boolean adicionaJogo(Jogo jogoAAdicionar) {
@@ -95,7 +97,7 @@ public abstract class Usuario {
 		adicionaX2p(this.getJogo(nomeDoJogo).registraJogada(score, zerou));
 	}
 	
-	public Jogo getJogo(String nomeDoJogo) throws Exception{
+	public Jogo getJogo(String nomeDoJogo) throws MissingResourceException, ValidacaoException{
 
 		Validacao.validaString(nomeDoJogo, "Nome do jogo nao pode ser nulo ou vazio");
 		
@@ -106,7 +108,7 @@ public abstract class Usuario {
 				return jogoAProcurar;
 			}
 		}
-		throw new Exception("Jogo nao encontrado");
+		throw new MissingResourceException("Jogo nao encontrado", "Usuario", "Jogo");
 	}
 	
 	public HashSet<Jogo> getJogos() {
