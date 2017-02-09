@@ -2,9 +2,11 @@ package central.games;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.MissingResourceException;
 
 import central.games.jogo.Jogo;
 import central.games.usuario.Usuario;
+import exception.ValidacaoException;
 import validacao.Validacao;
 
 public class Loja {
@@ -21,7 +23,7 @@ public class Loja {
 		return meusUsuarios.add(user);
 	}
 	
-	public Usuario getUsuario(String login) throws Exception {
+	public Usuario getUsuario(String login) throws ValidacaoException, MissingResourceException {
 
 		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo");
 		
@@ -33,18 +35,18 @@ public class Loja {
 			}
 		}
 		
-		throw new Exception("Usuario inexistente");
+		throw new MissingResourceException("Usuario inexistente", "Usuario", "login");
 		
 		
 	}
 	
-	public void depositaDinheiro(String login, int valor) throws Exception {
+	public void depositaDinheiro(String login, int valor) throws ValidacaoException {
 		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo");
 		this.getUsuario(login).depositaDinheiro(valor);
 	
 	}
 	
-	public boolean vendeJogo(String login, Jogo jogoAComprar) throws Exception{
+	public boolean vendeJogo(String login, Jogo jogoAComprar) throws ValidacaoException{
 		
 		return this.getUsuario(login).compraJogo(jogoAComprar);
 	}
