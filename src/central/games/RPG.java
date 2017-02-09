@@ -4,7 +4,7 @@ public class RPG extends Jogo{
 	
 	
 
-	public RPG(String nome, double preco) throws Exception {
+	public RPG(String nome, int preco) throws Exception {
 		super(nome, preco);
 		// TODO Auto-generated constructor stub
 	}
@@ -17,10 +17,12 @@ public class RPG extends Jogo{
 		if(zerou) {
 			this.zerou();
 		}
-		if(score > this.getMaiorScore()) {
+		if(score > super.getMaiorScore()) {
 			this.setMaiorScore(score);
+			
 		}
-		return 0;
+		super.jogou();
+		return 10;
 	}
 
 	

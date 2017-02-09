@@ -4,7 +4,7 @@ public class Luta extends Jogo {
 	
 	
 
-	public Luta(String nome, double preco) throws Exception{
+	public Luta(String nome, int preco) throws Exception{
 		super(nome, preco);
 		// TODO Auto-generated constructor stub
 	}
@@ -17,10 +17,15 @@ public class Luta extends Jogo {
 		if(zerou) {
 			this.zerou();
 		}
-		if(score > this.getMaiorScore()) {
+		if(score > super.getMaiorScore()) {
 			this.setMaiorScore(score);
+			return score / 1000;
 		}
+		
+		super.jogou();
+		
 		return 0;
+
 	}
 
 

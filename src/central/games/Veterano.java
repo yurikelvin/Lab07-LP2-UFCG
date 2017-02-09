@@ -7,6 +7,7 @@ public class Veterano extends Usuario {
 
 	public Veterano(String nome, String login) throws Exception{
 		super(nome, login);
+		super.adicionaX2p(1000);
 
 	}
 	
@@ -25,10 +26,16 @@ public class Veterano extends Usuario {
 	}
 
 	@Override
-	public boolean compraJogo(Jogo jogoAComprar) {
-		if(this.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.2)) {
-			this.descontaDinheiro(jogoAComprar.getPreco() * 0.2);
-			return this.adicionaJogo(jogoAComprar);
+	public boolean compraJogo(Jogo jogoAComprar) throws Exception {
+		if(jogoAComprar == null) {
+			throw new Exception("Jogo nao pode ser nulo");
+		}
+
+		if(super.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.8)) {
+			
+				super.descontaDinheiro(jogoAComprar.getPreco() * 0.8);
+				super.adicionaX2p(15 * jogoAComprar.getPreco());
+				return this.adicionaJogo(jogoAComprar);
 		}
 		
 		return false;

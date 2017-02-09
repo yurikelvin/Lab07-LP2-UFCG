@@ -2,7 +2,7 @@ package central.games;
 
 public class Plataforma extends Jogo {
 
-	public Plataforma(String nome, double preco) throws Exception{
+	public Plataforma(String nome, int preco) throws Exception{
 		super(nome, preco);
 		// TODO Auto-generated constructor stub
 	}
@@ -14,10 +14,12 @@ public class Plataforma extends Jogo {
 		}
 		if(zerou) {
 			this.zerou();
+			return 20;
 		}
-		if(score > this.getMaiorScore()) {
+		if(score > super.getMaiorScore()) {
 			this.setMaiorScore(score);
 		}
+		super.jogou();
 		return 0;
 	}
 

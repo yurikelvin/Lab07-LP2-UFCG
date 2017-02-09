@@ -9,8 +9,9 @@ public class Noob extends Usuario {
 
 	@Override
 	public boolean compraJogo(Jogo jogoAComprar) {
-		if(this.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.1)) {
-			this.descontaDinheiro(jogoAComprar.getPreco() * 0.1);
+		if(super.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.9)) {
+			super.descontaDinheiro(jogoAComprar.getPreco() * 0.9);
+			super.adicionaX2p(10 * jogoAComprar.getPreco());
 			return this.adicionaJogo(jogoAComprar);
 		}
 		

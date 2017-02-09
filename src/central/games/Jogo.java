@@ -12,9 +12,10 @@ import java.util.Iterator;
 public abstract class Jogo {
 	
 	private String nome;
-	private double preco;
+	private int preco;
 	private int maiorScore;
 	private int qtdZeradas;
+	private int qtdJogadas;
 	private HashSet<Jogabilidade> jogabilidade;
 	
 	/** 
@@ -24,7 +25,7 @@ public abstract class Jogo {
 	 * @throws Exception  Se nome for nulo ou vazio ou preco for menor ou igual a 0.
 	 */
 	
-	public Jogo(String nome, double preco) throws Exception{
+	public Jogo(String nome, int preco) throws Exception{
 		if(nome == null || nome.equals("")) {
 			throw new Exception("Nome do jogo nao pode ser nulo ou vazio");
 		}
@@ -51,7 +52,7 @@ public abstract class Jogo {
 	 * Retorna o preco deste Jogo.
 	 * @return o preco do Jogo
 	 */
-	public double getPreco() {
+	public int getPreco() {
 		return this.preco;
 	}
 	
@@ -61,7 +62,7 @@ public abstract class Jogo {
 	 * @throws Exception  Se preco for menor que zero.
 	 */
 
-	public void setPreco(double preco) throws Exception {
+	public void setPreco(int preco) throws Exception {
 		if(preco < 0) {
 			throw new Exception("Preco tem que ser maior que zero");
 		}
@@ -114,6 +115,12 @@ public abstract class Jogo {
 		this.qtdZeradas ++;
 	}
 	
+	public int getQtdJogadas() {
+		return qtdJogadas;
+	}
+	public void jogou() {
+		this.qtdJogadas ++;
+	}
 	/**
 	 * Cada Jogo possui um agrupamento que descreve sua jogabilidade.
 	 *  Adiciona jogabilidade ao Jogo.
