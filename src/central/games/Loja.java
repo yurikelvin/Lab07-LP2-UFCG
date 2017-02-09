@@ -3,7 +3,13 @@ package central.games;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import central.games.jogo.Jogo;
+import central.games.usuario.Usuario;
+import validacao.Validacao;
+
 public class Loja {
+	
+	private static final String FIM_DE_LINHA = System.lineSeparator();
 	
 	private HashSet<Usuario> meusUsuarios;
 	
@@ -11,22 +17,14 @@ public class Loja {
 		this.meusUsuarios = new HashSet<>();
 	}
 	
-	public boolean vendeJogo(String login ) {
-		
-	}
-	
 	public boolean adicionarUsuario(Usuario user) {
 		return meusUsuarios.add(user);
 	}
 	
-	public void depositaDinheiro(String login, int valor) {
-		
-	}
-	
 	public Usuario getUsuario(String login) throws Exception {
-		if(login == null || login.equals("")) {
-			throw new Exception("Login nao pode ser nulo ou vazio");
-		}
+
+		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo");
+		
 		Iterator<Usuario> it = meusUsuarios.iterator();
 		while(it.hasNext()) {
 			Usuario usuarioProcurado = it.next();
@@ -35,8 +33,30 @@ public class Loja {
 			}
 		}
 		
-		throw new Exception("Usuario com este login nao existe");
+		throw new Exception("Usuario inexistente");
 		
+		
+	}
+	
+	public void depositaDinheiro(String login, int valor) throws Exception {
+		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo");
+		this.getUsuario(login).depositaDinheiro(valor);
+	
+	}
+	
+	public boolean vendeJogo(String login, Jogo jogoAComprar) throws Exception{
+		
+		return this.getUsuario(login).compraJogo(jogoAComprar);
+	}
+	
+	@Override
+	public String toString() {
+		String loja = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA;
+		for(Usuario usuarios: meusUsuarios) {
+			loja += usuarios;
+		}
+					
+		return loja;
 		
 	}
 

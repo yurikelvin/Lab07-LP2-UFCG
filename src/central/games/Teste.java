@@ -1,5 +1,10 @@
 package central.games;
 
+import central.games.jogo.Luta;
+import central.games.jogo.Plataforma;
+import central.games.jogo.RPG;
+import central.games.usuario.Noob;
+
 public class Teste {
 	
 	public static void main(String[] args) throws Exception {
@@ -25,8 +30,26 @@ public class Teste {
 
 		//meuNoob.adicionaJogo(new Luta("Guilty Gears", 80));
 		//meuNoob.adicionaJogo(new RPG("Paper Mario", 75));
-		System.out.println(meuNoob.getX2p());
+		
+		Loja minhaLoja = new Loja();
+		minhaLoja.adicionarUsuario(meuNoob);
+		System.out.println(minhaLoja);
 
 	}
+	
+/*	public void imprimeJogos() throws Exception{
+		this.depositaDinheiro(5000);
+		RPG meuRpg = new RPG("Ragnarok", 5);
+		meuRpg.adicionaJogabilidade(Jogabilidade.ONLINE);
+		meuRpg.adicionaJogabilidade(Jogabilidade.OFFLINE);
+		compraJogo(meuRpg);
+		HashSet<Jogo> teste = this.showGames();
+		Iterator<Jogo> it = teste.iterator();
+		while(it.hasNext()) {
+			Jogo meuJogo = it.next();
+			System.out.println(meuJogo);
+		}
+	}
+*/
 
 }

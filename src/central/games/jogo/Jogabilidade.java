@@ -1,4 +1,4 @@
-package central.games;
+package central.games.jogo;
 
 public enum Jogabilidade {
 	

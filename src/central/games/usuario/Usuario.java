@@ -1,7 +1,10 @@
-package central.games;
+package central.games.usuario;
 
 import java.util.HashSet;
 import java.util.Iterator;
+
+import central.games.jogo.Jogo;
+import validacao.Validacao;
 
 public abstract class Usuario {
 	
@@ -9,19 +12,16 @@ public abstract class Usuario {
 	private String login;
 	private double qtdDinheiroDisponivel;
 	private int x2p;
+	
+	public static final String FIM_DE_LINHA = System.lineSeparator();
 
 	
 	private HashSet<Jogo> meusJogos;
 	
 	public Usuario(String nome, String login) throws Exception {
 		
-		if(nome == null || nome.equals("")) {
-			throw new Exception("Nome de usuario nao pode ser vazio ou nulo");
-		}
-		
-		if(login == null || login.equals("")) {
-			throw new Exception("Login de usuario nao pode ser vazio ou nulo");
-		}
+		Validacao.validaString(nome, "Nome de usuario nao pode ser vazio ou nulo");
+		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo");
 		
 		this.nome = nome;
 		this.login = login;
@@ -35,18 +35,16 @@ public abstract class Usuario {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
+		
+		Validacao.validaString(nome, "Nome de usuario nao pode ser vazio ou nulo");
+		
 		this.nome = nome;
 	}
 
 	public String getLogin() {
 		return login;
 	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	
 
 	public double getQtdDinheiroDisponivel() {
 		return qtdDinheiroDisponivel;
@@ -61,9 +59,9 @@ public abstract class Usuario {
 	}
 	
 	public boolean compraJogo(Jogo jogoAComprar) throws Exception {
-		if(jogoAComprar == null) {
-			throw new Exception("Jogo nao pode ser nulo");
-		}
+
+		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
+		
 		if(this.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco())) {
 			this.descontaDinheiro(jogoAComprar.getPreco());
 			return this.adicionaJogo(jogoAComprar);
@@ -73,6 +71,7 @@ public abstract class Usuario {
 	}
 	
 	public boolean adicionaJogo(Jogo jogoAAdicionar) {
+		
 		return meusJogos.add(jogoAAdicionar);
 	}
 	
@@ -81,7 +80,7 @@ public abstract class Usuario {
 	}
 	
 	public void adicionaX2p(int x2p) {
-		this.x2p += x2p;
+		this.x2p += (x2p < 0) ? 0 : x2p;
 	}
 	
 	public int getX2p() {
@@ -89,14 +88,16 @@ public abstract class Usuario {
 	}
 	
 	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws Exception{
+		
+		Validacao.validaString(nomeDoJogo, "Nome do jogo nao pode ser nulo ou vazio");
+		Validacao.validaInt(score, "Score nao pode ser negativo");
 
 		adicionaX2p(this.getJogo(nomeDoJogo).registraJogada(score, zerou));
 	}
 	
 	public Jogo getJogo(String nomeDoJogo) throws Exception{
-		if(nomeDoJogo == null || nomeDoJogo.equals("")) {
-			throw new Exception ("Nome do jogo nao pode ser nulo ou vazio");
-		}
+
+		Validacao.validaString(nomeDoJogo, "Nome do jogo nao pode ser nulo ou vazio");
 		
 		Iterator<Jogo> it = meusJogos.iterator();
 		while(it.hasNext()) {
@@ -106,6 +107,10 @@ public abstract class Usuario {
 			}
 		}
 		throw new Exception("Jogo nao encontrado");
+	}
+	
+	public HashSet<Jogo> getJogos() {
+		return this.meusJogos;
 	}
 
 	@Override
@@ -134,7 +139,7 @@ public abstract class Usuario {
 	}
 	
 
-	
+
 	
 	
 	

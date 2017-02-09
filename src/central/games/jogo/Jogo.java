@@ -1,7 +1,8 @@
-package central.games;
+package central.games.jogo;
 
 import java.util.HashSet;
-import java.util.Iterator;
+
+import validacao.Validacao;
 
 /**
  * Classe responsavel por moldar os tipos de Jogo.
@@ -18,6 +19,9 @@ public abstract class Jogo {
 	private int qtdJogadas;
 	private HashSet<Jogabilidade> jogabilidade;
 	
+	public static final String FIM_DE_LINHA = System.lineSeparator();
+	
+	
 	/** 
 	 * Cria um novo Jogo com o nome e preco especificado.
 	 * @param nome  o nome do Jogo.
@@ -26,13 +30,10 @@ public abstract class Jogo {
 	 */
 	
 	public Jogo(String nome, int preco) throws Exception{
-		if(nome == null || nome.equals("")) {
-			throw new Exception("Nome do jogo nao pode ser nulo ou vazio");
-		}
-		if(preco <= 0) {
-			throw new Exception("Preco nao pode ser negativo");
-		}
 		
+		Validacao.validaString(nome, "Nome do jogo nao pode ser nulo ou vazio");
+		Validacao.validaInt(preco, "Preco do jogo nao pode ser negativo");
+
 		this.nome = nome;
 		this.preco = preco;
 		this.maiorScore = 0;
@@ -63,9 +64,8 @@ public abstract class Jogo {
 	 */
 
 	public void setPreco(int preco) throws Exception {
-		if(preco < 0) {
-			throw new Exception("Preco tem que ser maior que zero");
-		}
+		
+		Validacao.validaInt(preco, "Preco do jogo nao pode ser negativo");
 		
 		this.preco = preco;
 	}
@@ -88,9 +88,8 @@ public abstract class Jogo {
 	 */
 
 	public void setMaiorScore(int maiorScore) throws Exception{
-		if(maiorScore < 0) {
-			throw new Exception("Score precisa ser maior que 0");
-		}
+
+		Validacao.validaInt(maiorScore, "Score precisa ser maior que 0");
 		
 		this.maiorScore = maiorScore;
 		
@@ -131,9 +130,9 @@ public abstract class Jogo {
 	 */
 	
 	public boolean adicionaJogabilidade(Jogabilidade jogabilidade) throws Exception {
-		if(jogabilidade == null) {
-			throw new Exception("Tipo de jogabilidade nao pode ser nulo");
-		}
+
+		Validacao.validaObj(jogabilidade, "Tipo de jogabilidade nao pode ser nulo");
+		
 		return this.jogabilidade.add(jogabilidade);
 	}
 
@@ -158,11 +157,7 @@ public abstract class Jogo {
 	
 	public abstract int registraJogada(int score, boolean zerou) throws Exception;
 
-	@Override
-	public String toString() {
-		return "Jogo [nome=" + nome + ", preco=" + preco + ", maiorScore=" + maiorScore + ", qtdZeradas=" + qtdZeradas
-				+ ", jogabilidade=" + jogabilidade + "]";
-	}
+
 	
 	
 
