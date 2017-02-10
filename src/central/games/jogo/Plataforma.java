@@ -15,6 +15,8 @@ public class Plataforma extends Jogo {
 
 		Validacao.validaInt(score, "Score nao pode ser negativo");
 		
+		super.jogou();
+		
 		if(zerou) {
 			this.zerou();
 			return 20;
@@ -22,7 +24,7 @@ public class Plataforma extends Jogo {
 		if(score > super.getMaiorScore()) {
 			this.setMaiorScore(score);
 		}
-		super.jogou();
+
 		return 0;
 	}
 

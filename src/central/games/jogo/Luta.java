@@ -17,6 +17,8 @@ public class Luta extends Jogo {
 
 		Validacao.validaInt(score, "Score nao pode ser negativo");
 		
+		super.jogou();
+		
 		if(zerou) {
 			this.zerou();
 		}
@@ -25,7 +27,7 @@ public class Luta extends Jogo {
 			return score / 1000;
 		}
 		
-		super.jogou();
+
 		
 		return 0;
 
