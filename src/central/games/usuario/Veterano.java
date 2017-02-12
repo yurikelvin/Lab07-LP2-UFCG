@@ -36,8 +36,19 @@ public class Veterano extends Usuario {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		String veterano = super.getLogin() + FIM_DE_LINHA +
+						super.getNome() + " - Jogador Veterano" + FIM_DE_LINHA +
+						"Lista de Jogos:" + FIM_DE_LINHA;
+		int totalPreco = 0;
+		
+		for(Jogo jogosObtidos: super.getJogos()) {
+			veterano += jogosObtidos + FIM_DE_LINHA;
+			totalPreco += jogosObtidos.getPreco();
+		}
+		
+		veterano += "Total de preco dos jogos: R$ " + totalPreco + ",00" + FIM_DE_LINHA +
+				"--------------------------------------------";
+		return veterano;
 	}
 	
 	

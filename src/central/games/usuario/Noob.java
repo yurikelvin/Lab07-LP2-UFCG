@@ -40,7 +40,7 @@ public class Noob extends Usuario {
 			totalPreco += jogosObtidos.getPreco();
 		}
 		
-		noob += FIM_DE_LINHA + "Total de preco dos jogos: R$ " + totalPreco + ",00" + FIM_DE_LINHA +
+		noob += "Total de preco dos jogos: R$ " + totalPreco + ",00" + FIM_DE_LINHA +
 				"--------------------------------------------";
 		return noob;
 	}

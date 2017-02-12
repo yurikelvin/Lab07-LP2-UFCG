@@ -1,12 +1,20 @@
 package central.games.usuario;
 
 import java.util.HashSet;
+
 import java.util.Iterator;
 import java.util.MissingResourceException;
 
 import central.games.jogo.Jogo;
 import exception.ValidacaoException;
 import validacao.Validacao;
+
+/**
+ * Classe responsavel para servir de base para Tipos de Usuario.
+ * 
+ * @author Yuri Kelvin Moura Sousa e Silva
+ *
+ */
 
 public abstract class Usuario {
 	
@@ -33,6 +41,10 @@ public abstract class Usuario {
 
 	}
 	
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 	public String getNome() {
 		return nome;
 	}

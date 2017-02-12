@@ -38,7 +38,7 @@ public class Luta extends Jogo {
 		String luta = "+ " + super.getNome() + " - Luta:" + FIM_DE_LINHA +
 				"==> Jogou " + super.getQtdJogadas() + " vez(es)" + FIM_DE_LINHA + 
 				"==> Zerou " + super.getQtdZeradas() + " vez(es)" + FIM_DE_LINHA +
-				"==> Maior score: " + super.getMaiorScore();
+				"==> Maior score: " + super.getMaiorScore() + FIM_DE_LINHA;
 		
 		return luta;
 	}
