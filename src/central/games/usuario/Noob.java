@@ -2,9 +2,17 @@ package central.games.usuario;
 
 import java.util.MissingResourceException;
 
+
 import central.games.jogo.Jogo;
 import exception.ValidacaoException;
 import validacao.Validacao;
+
+/**
+ * Classe que representa um tipo de Usuario.
+ * 
+ * @author Yuri Silva
+ *
+ */
 
 public class Noob extends Usuario {
 

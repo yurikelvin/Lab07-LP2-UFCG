@@ -10,7 +10,21 @@ import central.games.jogo.RPG;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
+/**
+ * Classe que representa um tipo de Usuario.
+ * 
+ * 
+ * @author Yuri Silva
+ *
+ */
+
 public class Veterano extends Usuario {
+	
+	/**
+	 * Cria um tipo de Usuario Veterano.
+	 * 
+	 * @see Usuario#Usuario(String, String)
+	 */
 
 	public Veterano(String nome, String login) throws ValidacaoException{
 		

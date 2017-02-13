@@ -3,9 +3,20 @@ package central.games.jogo;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
+/**
+ * Tipo especifico de Jogo.
+ * 
+ * @author Yuri Silva
+ *
+ */
 public class RPG extends Jogo{
 	
-	
+	/**
+	 * Cria um jogo especifico do tipo RPG.
+	 * 
+	 * @see Jogo#Jogo(String, int)
+
+	 */
 
 	public RPG(String nome, int preco) throws ValidacaoException {
 		super(nome, preco);

@@ -1,6 +1,7 @@
 package central.games;
 
 import java.util.HashSet;
+
 import java.util.Iterator;
 import java.util.MissingResourceException;
 
@@ -8,6 +9,13 @@ import central.games.jogo.Jogo;
 import central.games.usuario.Usuario;
 import exception.ValidacaoException;
 import validacao.Validacao;
+
+/**
+ * Esta classe fornece um acesso Facade a Central Games.
+ * 
+ * @author Yuri Silva
+ *
+ */
 
 public class Loja {
 

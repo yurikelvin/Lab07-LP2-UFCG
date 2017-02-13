@@ -10,6 +10,12 @@ import central.games.usuario.Veterano;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
+/**
+ * Classe responsavel por gerenciar Usuarios e Jogos. 
+ * @author Yuri Silva
+ *
+ */
+
 public class CentralGames {
 	
 	private HashSet<Usuario> meusUsuarios;
@@ -20,7 +26,14 @@ public class CentralGames {
 		meusUsuarios = new HashSet<>();
 	}
 	
+	/**
+	 *  Adiciona um usuario ao sistema.
+	 * @param usuario
+	 * @throws ValidacaoException se Usuario ja for cadastrado ou nulo.
+	 */
 	public void adicionaUsuario(Usuario usuario) throws ValidacaoException{
+		
+		Validacao.validaObj(usuario);
 		
 		boolean bemSucedido = meusUsuarios.add(usuario);
 		if(!bemSucedido) {
@@ -28,6 +41,14 @@ public class CentralGames {
 		}
 		
 	}
+	
+	/**
+	 * Retorna um usuario cadastrado no sistema com o login especificado.
+	 * @param login
+	 * @return
+	 * @throws ValidacaoException Se o login for nul oou vazio.
+	 * @throws MissingResourceException Se o usuario nao existir.
+	 */
 	
 	public Usuario getUsuario(String login) throws ValidacaoException, MissingResourceException {
 
@@ -46,16 +67,40 @@ public class CentralGames {
 		
 	}
 	
-	public void addFundos(String login, int valor) throws ValidacaoException {
+	/**
+	 * Adiciona dinheiro a conta de um usuario cadastrado no sistema. Adiciona 0 se valor for menor que 0.
+	 * @param login
+	 * @param valor
+	 * @throws ValidacaoException Se login for nulo ou vazio.
+	 * @throws MissingResourceException Se o login nao tiver associado a nenhum Usuario no sistema.
+	 */
+	
+	public void addFundos(String login, int valor) throws ValidacaoException, MissingResourceException {
 		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo.");
+
 		this.getUsuario(login).depositaDinheiro(valor);
 	
 	}
+	
+	/**
+	 * Compra um determinado jogo com base em dinheiro disponivel do usuario.
+	 * @see Usuario#compraJogo(Jogo)
+	 */
 	
 	public boolean compraJogo(String login, Jogo jogo) throws ValidacaoException{
 		
 		return this.getUsuario(login).compraJogo(jogo);
 	}
+	
+	/**
+	 * Realiza a promocao de um usuario do tipo Noob para o tipo Veterano.
+	 * 
+	 * @param login
+	 * @return true se bem sucedido
+	 * @throws ValidacaoException Se o login for nulo ou invalido ou usuario ja se encontrar como Veterano.
+	 * @throws MissingResourceException Se a experiencia do Usuario nao for suficiente para promocao.
+	 */
+	
 	
 	public boolean upgrade(String login) throws ValidacaoException, MissingResourceException{
 		Validacao.validaString(login);

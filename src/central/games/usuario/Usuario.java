@@ -28,6 +28,13 @@ public abstract class Usuario {
 	
 	private HashSet<Jogo> meusJogos;
 	
+	/**
+	 *  Construtor que serve de base para as subclasses criarem um novo tipo de Usuario.
+	 * @param nome Nome do Usuario.
+	 * @param login Login do Usuario.
+	 * @throws ValidacaoException Se nome ou login forem nulo ou vazios 
+	 */
+	
 	public Usuario(String nome, String login) throws ValidacaoException {
 		
 		Validacao.validaString(nome, "Nome de usuario nao pode ser vazio ou nulo");
@@ -48,6 +55,13 @@ public abstract class Usuario {
 	public String getNome() {
 		return nome;
 	}
+	
+	/**
+	 * Define um novo nome para o Usuario.
+	 * 
+	 * @param nome
+	 * @throws ValidacaoException Se usuario for vazio ou nulo.
+	 */
 
 	public void setNome(String nome) throws ValidacaoException {
 		
@@ -63,14 +77,32 @@ public abstract class Usuario {
 	public double getQtdDinheiroDisponivel() {
 		return qtdDinheiroDisponivel;
 	}
+	
+	/**
+	 * Incrementa dinheiro na conta do Usuario, pode incrementar 0 se valor for menor que zero.
+	 * @param valor
+	 */
 
 	public void depositaDinheiro(double valor) {
 		this.qtdDinheiroDisponivel += (valor < 0) ? 0 : valor;
 	}
 	
+	/**
+	 * Decremeta dinheiro na conta do Usuario, pode decrementar 0 se valor for menor que zero.
+	 * @param valor
+	 */
+	
 	public void descontaDinheiro(double valor) {
 		this.qtdDinheiroDisponivel -= (valor < 0) ? 0 : valor;
 	}
+	
+	/**
+	 *  Compra um determinado jogo, se o Usuario tiver dinheiro disponinvel.
+	 * @param jogoAComprar
+	 * @return true se a compra for bem sucedida.
+	 * @throws ValidacaoException Se jogoAComprar for nulo.
+	 * @throws MissingResourceException Se dinheiro para a compra for insuficiente.
+	 */
 	
 	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
 
@@ -93,6 +125,11 @@ public abstract class Usuario {
 		return meusJogos;
 	}
 	
+	/**
+	 * Soma experiencia ao Usuario, pode somar 0 se x2p for menor que zero.
+	 * @param x2p experiencia a ser somada
+	 */
+	
 	public void adicionaX2p(int x2p) {
 		this.x2p += (x2p < 0) ? 0 : x2p;
 	}
@@ -101,13 +138,29 @@ public abstract class Usuario {
 		return this.x2p;
 	}
 	
-	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws Exception{
+	/**
+	 * @see Jogo#registraJogada(int, boolean)
+	 * 
+	 * @param nomeDoJogo
+	 * @throws ValidacaoException Se nome do jogo for nulo ou vazio.
+	 */
+	
+	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws ValidacaoException{
 		
 		Validacao.validaString(nomeDoJogo, "Nome do jogo nao pode ser nulo ou vazio");
-		Validacao.validaInt(score, "Score nao pode ser negativo");
+
 
 		adicionaX2p(this.getJogo(nomeDoJogo).registraJogada(score, zerou));
 	}
+	
+	/**
+	 * Retorna um Jogo com base no nome.
+	 * 
+	 * @param nomeDoJogo
+	 * @return O Jogo procurado.
+	 * @throws MissingResourceException Se o jogo nao for encontrado.
+	 * @throws ValidacaoException Se o nome do jogo for nulo ou vazio.
+	 */
 	
 	public Jogo getJogo(String nomeDoJogo) throws MissingResourceException, ValidacaoException{
 

@@ -3,10 +3,22 @@ package central.games.jogo;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
+/**
+ * 
+ * Tipo especifico de Jogo.
+ * 
+ * @author Yuri Silva
+ *
+ */
 public class Luta extends Jogo {
 	
+	/**
+	 * Cria um jogo especifico do tipo Luta.
+	 * 
+	 * @see Jogo#Jogo(String, int)
+	 * 
+	 */
 	
-
 	public Luta(String nome, int preco) throws ValidacaoException {
 		super(nome, preco);
 

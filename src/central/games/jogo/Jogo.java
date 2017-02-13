@@ -8,7 +8,7 @@ import validacao.Validacao;
 /**
  * Classe responsavel por moldar os tipos de Jogo.
  *
- * @author Yuri Kelvin Moura Sousa e Silva
+ * @author Yuri Silva
  */
 
 public abstract class Jogo {
@@ -24,7 +24,7 @@ public abstract class Jogo {
 	
 	
 	/** 
-	 * Cria um novo Jogo com o nome e preco especificado.
+	 * Construtor que serve de base para as subclasses criarem um Jogo com os parametros especificados..
 	 * @param nome  o nome do Jogo.
 	 * @param preco  o preco do Jogo.
 	 * @throws ValidacaoException  Se nome for nulo ou vazio ou preco for menor ou igual a 0.
@@ -41,19 +41,11 @@ public abstract class Jogo {
 		this.qtdZeradas = 0;
 		this.jogabilidade = new HashSet<>();
 	}
-	/**
-	 * Retorna o nome deste Jogo.
-	 * @return o nome do Jogo.
-	 */
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	/**
-	 * Retorna o preco deste Jogo.
-	 * @return o preco do Jogo
-	 */
 	public int getPreco() {
 		return this.preco;
 	}
@@ -71,11 +63,6 @@ public abstract class Jogo {
 		this.preco = preco;
 	}
 	
-	/**
-	 * Retorna a maior pontuacao atual feita pelos jogadores dentro do Jogo.
-	 * 
-	 * @return a maior pontuacao.
-	 */
 
 	public int getMaiorScore() {
 		return this.maiorScore;
@@ -96,11 +83,6 @@ public abstract class Jogo {
 		
 	}
 	
-	/**
-	 * Retorna a quantidade de vezes que este Jogo ja foi concluido.
-	 * 
-	 * @return a quantidade de vezes que este Jogo ja foi concluido.
-	 */
 
 	public int getQtdZeradas() {
 		return this.qtdZeradas;
@@ -127,7 +109,7 @@ public abstract class Jogo {
 	 * 
 	 * @param jogabilidade  Estilo de jogo.
 	 * @return Se a jogabilidade foi adicionada com sucesso ao Jogo.
-	 * @throws Exception  Se jogabilidade for nulo.
+	 * @throws ValidacaoException  Se jogabilidade for nulo.
 	 */
 	
 	public boolean adicionaJogabilidade(Jogabilidade jogabilidade) throws ValidacaoException {
@@ -153,7 +135,7 @@ public abstract class Jogo {
 	 * @param score pontuacao feita pelo Jogador.
 	 * @param zerou caso o jogador tenha finalizado o Jogo.
 	 * @return Uma bonificacao pelo jogador ter Jogado o jogo.
-	 * @throws Exception Se score for menor que zero.
+	 * @throws ValidacaoException Se score for menor que zero.
 	 */
 	
 	public abstract int registraJogada(int score, boolean zerou) throws ValidacaoException;
