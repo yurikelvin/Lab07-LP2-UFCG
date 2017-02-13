@@ -16,7 +16,9 @@ public class Luta extends Jogo {
 	 * Cria um jogo especifico do tipo Luta.
 	 * 
 	 * @see Jogo#Jogo(String, int)
-	 * 
+	 * @param nome Nome do Jogo.
+	 * @param preco Preco do Jogo.
+	 * @throws ValidacaoException Se nome for nulo ou vazio e preco for menor que 0.
 	 */
 	
 	public Luta(String nome, int preco) throws ValidacaoException {

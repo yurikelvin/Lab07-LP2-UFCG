@@ -28,7 +28,7 @@ public class CentralGames {
 	
 	/**
 	 *  Adiciona um usuario ao sistema.
-	 * @param usuario
+	 * @param usuario Objeto do tipo Usuario
 	 * @throws ValidacaoException se Usuario ja for cadastrado ou nulo.
 	 */
 	public void adicionaUsuario(Usuario usuario) throws ValidacaoException{
@@ -44,9 +44,9 @@ public class CentralGames {
 	
 	/**
 	 * Retorna um usuario cadastrado no sistema com o login especificado.
-	 * @param login
-	 * @return
-	 * @throws ValidacaoException Se o login for nul oou vazio.
+	 * @param login Login do usuario.
+	 * @return Um usuario.
+	 * @throws ValidacaoException Se o login for nulo ou vazio.
 	 * @throws MissingResourceException Se o usuario nao existir.
 	 */
 	
@@ -69,8 +69,8 @@ public class CentralGames {
 	
 	/**
 	 * Adiciona dinheiro a conta de um usuario cadastrado no sistema. Adiciona 0 se valor for menor que 0.
-	 * @param login
-	 * @param valor
+	 * @param login Login do usuario.
+	 * @param valor Valor a ser depositado.
 	 * @throws ValidacaoException Se login for nulo ou vazio.
 	 * @throws MissingResourceException Se o login nao tiver associado a nenhum Usuario no sistema.
 	 */
@@ -85,9 +85,15 @@ public class CentralGames {
 	/**
 	 * Compra um determinado jogo com base em dinheiro disponivel do usuario.
 	 * @see Usuario#compraJogo(Jogo)
+	 * 
+	 * @param login Login do Usuario.
+	 * @param jogo Jogo a ser comprado.
+	 * @return true se bem sucedido.
+	 * @throws ValidacaoException Se login for nulo ou invalido.
+	 * @throws MissingResourceException Se usuario nao for encontrado.
 	 */
 	
-	public boolean compraJogo(String login, Jogo jogo) throws ValidacaoException{
+	public boolean compraJogo(String login, Jogo jogo) throws ValidacaoException, MissingResourceException{
 		
 		return this.getUsuario(login).compraJogo(jogo);
 	}
@@ -95,8 +101,8 @@ public class CentralGames {
 	/**
 	 * Realiza a promocao de um usuario do tipo Noob para o tipo Veterano.
 	 * 
-	 * @param login
-	 * @return true se bem sucedido
+	 * @param login Login do usuario.
+	 * @return true se bem sucedido.
 	 * @throws ValidacaoException Se o login for nulo ou invalido ou usuario ja se encontrar como Veterano.
 	 * @throws MissingResourceException Se a experiencia do Usuario nao for suficiente para promocao.
 	 */

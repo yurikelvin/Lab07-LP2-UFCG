@@ -11,10 +11,20 @@ import validacao.Validacao;
  * Classe que representa um tipo de Usuario.
  * 
  * @author Yuri Silva
- *
  */
 
 public class Noob extends Usuario {
+	
+	/**
+	 * Cria um tipo de Usuario Noob.
+	 * 
+	 * @see Usuario#Usuario(String, String)
+	 * 
+	 * @param nome Nome do Usuario.
+	 * @param login Login do Usuario.
+	 * 
+	 * @throws ValidacaoException Se nome ou login for nulo ou vazio. 
+	 */
 
 	public Noob(String nome, String login) throws ValidacaoException{
 		

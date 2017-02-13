@@ -59,7 +59,7 @@ public abstract class Usuario {
 	/**
 	 * Define um novo nome para o Usuario.
 	 * 
-	 * @param nome
+	 * @param nome Novo nome do usuario.
 	 * @throws ValidacaoException Se usuario for vazio ou nulo.
 	 */
 
@@ -80,7 +80,7 @@ public abstract class Usuario {
 	
 	/**
 	 * Incrementa dinheiro na conta do Usuario, pode incrementar 0 se valor for menor que zero.
-	 * @param valor
+	 * @param valor Valor a ser depositado.
 	 */
 
 	public void depositaDinheiro(double valor) {
@@ -89,7 +89,7 @@ public abstract class Usuario {
 	
 	/**
 	 * Decremeta dinheiro na conta do Usuario, pode decrementar 0 se valor for menor que zero.
-	 * @param valor
+	 * @param valor Valor a ser descontado.
 	 */
 	
 	public void descontaDinheiro(double valor) {
@@ -98,7 +98,7 @@ public abstract class Usuario {
 	
 	/**
 	 *  Compra um determinado jogo, se o Usuario tiver dinheiro disponinvel.
-	 * @param jogoAComprar
+	 * @param jogoAComprar jogo a comprar
 	 * @return true se a compra for bem sucedida.
 	 * @throws ValidacaoException Se jogoAComprar for nulo.
 	 * @throws MissingResourceException Se dinheiro para a compra for insuficiente.
@@ -140,8 +140,10 @@ public abstract class Usuario {
 	
 	/**
 	 * @see Jogo#registraJogada(int, boolean)
-	 * 
-	 * @param nomeDoJogo
+	 * @param nomeDoJogo  Nome do Jogo.
+	 * @param score Pontuacao do jogo
+	 * @param zerou Se o usuario chegou a zerar o jogo.
+
 	 * @throws ValidacaoException Se nome do jogo for nulo ou vazio.
 	 */
 	
@@ -156,7 +158,7 @@ public abstract class Usuario {
 	/**
 	 * Retorna um Jogo com base no nome.
 	 * 
-	 * @param nomeDoJogo
+	 * @param nomeDoJogo Nome do JOgo
 	 * @return O Jogo procurado.
 	 * @throws MissingResourceException Se o jogo nao for encontrado.
 	 * @throws ValidacaoException Se o nome do jogo for nulo ou vazio.

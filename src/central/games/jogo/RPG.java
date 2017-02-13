@@ -15,7 +15,9 @@ public class RPG extends Jogo{
 	 * Cria um jogo especifico do tipo RPG.
 	 * 
 	 * @see Jogo#Jogo(String, int)
-
+	 * @param nome Nome do Jogo.
+	 * @param preco Preco do Jogo.
+	 * @throws ValidacaoException Se nome for nulo ou vazio e preco for menor que 0.
 	 */
 
 	public RPG(String nome, int preco) throws ValidacaoException {

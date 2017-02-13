@@ -24,6 +24,11 @@ public class Veterano extends Usuario {
 	 * Cria um tipo de Usuario Veterano.
 	 * 
 	 * @see Usuario#Usuario(String, String)
+	 * 
+	 * @param nome Nome do Usuario.
+	 * @param login Login do Usuario.
+	 * 
+	 * @throws ValidacaoException Se nome ou login for nulo ou vazio. 
 	 */
 
 	public Veterano(String nome, String login) throws ValidacaoException{
