@@ -133,6 +133,26 @@ public class CentralGames {
 		
 	}
 	
+	/**
+	 * Registra a jogada de um Usuario em um Jogo.
+	 * 
+	 * @param loginUsuario Login do usuario a ser procurado.
+	 * @param nomeDoJogo Nome do jogo a ser registrado a jogada.
+	 * @param score Pontuacao feita no jogo.
+	 * @param zerou Se zerou o jogo.
+	 * @throws ValidacaoException Se login do usuario ou nome do jogo for nulo ou vazio ou score menor que zero.
+	 * @throws MissingResourceException Se o usuario nao for encontrado ou o Jogo nao for encontrado.
+	 * 
+	 */
+	
+	public void registraJogada(String loginUsuario, String nomeDoJogo, int score, boolean zerou) throws ValidacaoException, MissingResourceException {
+		Usuario usuarioARegistrar = this.getUsuario(loginUsuario);
+		
+		usuarioARegistrar.registraJogada(nomeDoJogo, score, zerou);
+		
+		
+	}
+	
 	@Override
 	public String toString() {
 		String loja = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA;

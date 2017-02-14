@@ -44,10 +44,12 @@ public class Veterano extends Usuario {
 		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
 		
 		if(super.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.8)) {
-			
+			if(!super.temJogo(jogoAComprar)) {
 				super.descontaDinheiro(jogoAComprar.getPreco() * 0.8);
 				super.adicionaX2p(15 * jogoAComprar.getPreco());
 				return super.adicionaJogo(jogoAComprar);
+			}
+			throw new ValidacaoException("Usuario ja possui este jogo.");
 		}
 		
 		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");

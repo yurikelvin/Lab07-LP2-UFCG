@@ -140,6 +140,31 @@ public abstract class Jogo {
 	
 	public abstract int registraJogada(int score, boolean zerou) throws ValidacaoException;
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.getNome() == null) ? 0 : this.getNome().hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Jogo other = (Jogo) obj;
+		if (this.getNome() == null) {
+			if (other.getNome() != null)
+				return false;
+		} else if (!this.getNome().equals(other.getNome()))
+			return false;
+		return true;
+	}
+
 
 	
 	

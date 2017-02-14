@@ -100,30 +100,19 @@ public abstract class Usuario {
 	 *  Compra um determinado jogo, se o Usuario tiver dinheiro disponinvel.
 	 * @param jogoAComprar jogo a comprar
 	 * @return true se a compra for bem sucedida.
-	 * @throws ValidacaoException Se jogoAComprar for nulo.
+	 * @throws ValidacaoException Se jogoAComprar for nulo ou usuario ja possuir jogoAComprar.
 	 * @throws MissingResourceException Se dinheiro para a compra for insuficiente.
 	 */
 	
-	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
+	public abstract boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException;
 
-		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
-		
-		if(this.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco())) {
-			this.descontaDinheiro(jogoAComprar.getPreco());
-			return this.adicionaJogo(jogoAComprar);
-		}
-		
-		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");
-	}
+
 	
 	public boolean adicionaJogo(Jogo jogoAAdicionar) {
 		
 		return meusJogos.add(jogoAAdicionar);
 	}
 	
-	public HashSet<Jogo> showGames() {
-		return meusJogos;
-	}
 	
 	/**
 	 * Soma experiencia ao Usuario, pode somar 0 se x2p for menor que zero.
@@ -151,8 +140,14 @@ public abstract class Usuario {
 		
 		Validacao.validaString(nomeDoJogo, "Nome do jogo nao pode ser nulo ou vazio");
 
-
-		adicionaX2p(this.getJogo(nomeDoJogo).registraJogada(score, zerou));
+		Jogo jogoARegistrar = this.getJogo(nomeDoJogo);
+		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou);
+		
+		this.adicionaX2p( x2pAcumulada );
+	}
+	
+	public boolean temJogo(Jogo jogo) {
+		return meusJogos.contains(jogo);
 	}
 	
 	/**
@@ -178,6 +173,11 @@ public abstract class Usuario {
 		throw new MissingResourceException("Jogo nao encontrado", "Usuario", "Jogo");
 	}
 	
+	/**
+	 * Retorna um set com todos jogos que o Usuario possuir.
+	 * @return um set com todos jogos que o Usuario possuir.
+	 */
+	
 	public HashSet<Jogo> getJogos() {
 		return this.meusJogos;
 	}
@@ -186,7 +186,7 @@ public abstract class Usuario {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((this.getLogin() == null) ? 0 : this.getLogin().hashCode());
 		return result;
 	}
 
@@ -199,10 +199,10 @@ public abstract class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (login == null) {
-			if (other.login != null)
+		if (this.getLogin() == null) {
+			if (other.getLogin() != null)
 				return false;
-		} else if (!login.equals(other.login))
+		} else if (!this.getLogin().equals(other.getLogin()))
 			return false;
 		return true;
 	}

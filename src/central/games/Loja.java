@@ -93,7 +93,8 @@ public class Loja {
 	public boolean upgrade(String login) throws ValidacaoException, MissingResourceException {
 		return meuSistema.upgrade(login);
 	}
-
+	
+	
 	public String toString() {
 		return meuSistema.toString();
 	}

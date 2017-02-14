@@ -38,9 +38,12 @@ public class Noob extends Usuario {
 		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
 		
 		if(super.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.9)) {
-			super.descontaDinheiro(jogoAComprar.getPreco() * 0.9);
-			super.adicionaX2p(10 * jogoAComprar.getPreco());
-			return super.adicionaJogo(jogoAComprar);
+			if(!super.temJogo(jogoAComprar)) {
+				super.descontaDinheiro(jogoAComprar.getPreco() * 0.9);
+				super.adicionaX2p(10 * jogoAComprar.getPreco());
+				return super.adicionaJogo(jogoAComprar);
+			}
+			throw new ValidacaoException("Usuario ja possui este jogo.");
 		}
 		
 		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");
