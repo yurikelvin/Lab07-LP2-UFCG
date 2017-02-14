@@ -21,6 +21,7 @@ public class Loja {
 
 	private CentralGames meuSistema;
 	
+	
 	public Loja() {
 
 		meuSistema = new CentralGames();
