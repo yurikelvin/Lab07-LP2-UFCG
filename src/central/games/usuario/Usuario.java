@@ -181,6 +181,10 @@ public abstract class Usuario {
 	public HashSet<Jogo> getJogos() {
 		return this.meusJogos;
 	}
+	
+	public void setJogos(HashSet<Jogo> jogos) {
+		this.meusJogos = jogos;
+	}
 
 	@Override
 	public int hashCode() {

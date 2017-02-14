@@ -119,6 +119,8 @@ public class CentralGames {
 				novoVeterano.setNome(usuarioASerPromovido.getNome());
 				novoVeterano.setLogin(usuarioASerPromovido.getLogin());
 				novoVeterano.adicionaX2p(usuarioASerPromovido.getX2p());
+				novoVeterano.setJogos(usuarioASerPromovido.getJogos());
+				novoVeterano.depositaDinheiro(usuarioASerPromovido.getQtdDinheiroDisponivel());
 				meusUsuarios.remove(usuarioASerPromovido);
 
 				

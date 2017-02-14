@@ -153,11 +153,20 @@ public class CentralGamesTest {
 
 	@Test
 	public void testUpgrade() throws ValidacaoException {
+		
+		// Teste parte em que o usuario ainda continua como Noob
 		assertEquals(300, meuSistema.getX2p("SLNSN"), 0.1);
 		
-		meuSistema.compraJogo("SLNSN", new Plataforma("Sony Run", 69));
+		Plataforma sonyr = new Plataforma("Sony Run", 69); 
+		RPG tw3 = new RPG("The Witcher 3", 100);
+		meuSistema.compraJogo("SLNSN", sonyr);
+		meuSistema.compraJogo("SLNSN", tw3);
 		assertEquals(990, meuSistema.getX2p("SLNSN"), 0.1);
 		
+		// Teste se usuario noob contem os jogos comprados.
+		assertTrue(meuSistema.getUsuario("SLNSN").temJogo(sonyr));
+		assertTrue(meuSistema.getUsuario("SLNSN").temJogo(tw3));
+		// Teste tentando dar upgrade em usuario com x2p insuficiente.
 		try {
 			meuSistema.upgrade("SLNSN");
 			fail();
@@ -168,18 +177,22 @@ public class CentralGamesTest {
 		meuSistema.compraJogo("SLNSN", new Plataforma("Mega", 1));
 		Noob testeNoob = new Noob("Teste classe", "novonoob");
 		assertTrue(meuSistema.getUsuario("SLNSN").getClass() == testeNoob.getClass());
-		assertTrue(meuSistema.upgrade("SLNSN"));
+		assertTrue(meuSistema.upgrade("SLNSN")); // Upgrade de Noob para Veterano
 		assertFalse(meuSistema.getUsuario("SLNSN").getClass() == testeNoob.getClass());
-		
+		// Teste se Usuario virou veterano
 		Veterano testeVeterano = new Veterano("Teste veterano", "vetera");
 		assertTrue(meuSistema.getUsuario("SLNSN").getClass() == testeVeterano.getClass());
 		
+		// Teste de upgrade de Usuario que ja se encontra como Veterano
 		try {
 			meuSistema.upgrade("SLNSN");
 			fail();
 		}catch(Exception e) {
 			assertEquals("Usuario ja se encontra como Veterano.", e.getMessage());
 		}
+		// Teste se o Usuario quando se transforma em veterano continua com os jogos.
+		assertTrue(meuSistema.getUsuario("SLNSN").temJogo(sonyr));
+		assertTrue(meuSistema.getUsuario("SLNSN").temJogo(tw3));
 	}
 
 	@Test
