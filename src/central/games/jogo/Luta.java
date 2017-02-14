@@ -49,7 +49,7 @@ public class Luta extends Jogo {
 
 	@Override
 	public String toString() {
-		String luta = "+ " + super.getNome() + " - Luta:" + FIM_DE_LINHA +
+		String luta =  FIM_DE_LINHA + "+ " + super.getNome() + " - Luta:" + FIM_DE_LINHA +
 				"==> Jogou " + super.getQtdJogadas() + " vez(es)" + FIM_DE_LINHA + 
 				"==> Zerou " + super.getQtdZeradas() + " vez(es)" + FIM_DE_LINHA +
 				"==> Maior score: " + super.getMaiorScore() + FIM_DE_LINHA;

@@ -57,9 +57,9 @@ public class Veterano extends Usuario {
 
 	@Override
 	public String toString() {
-		String veterano = super.getLogin() + FIM_DE_LINHA +
+		String veterano = FIM_DE_LINHA + super.getLogin() + FIM_DE_LINHA +
 						super.getNome() + " - Jogador Veterano" + FIM_DE_LINHA +
-						"Lista de Jogos:" + FIM_DE_LINHA;
+						"Lista de Jogos:";
 		int totalPreco = 0;
 		
 		for(Jogo jogosObtidos: super.getJogos()) {

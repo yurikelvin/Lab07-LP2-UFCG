@@ -51,9 +51,9 @@ public class Noob extends Usuario {
 
 	@Override
 	public String toString() {
-		String noob = super.getLogin() + FIM_DE_LINHA +
+		String noob = FIM_DE_LINHA + super.getLogin() + FIM_DE_LINHA +
 						super.getNome() + " - Jogador Noob" + FIM_DE_LINHA +
-						"Lista de Jogos:" + FIM_DE_LINHA;
+						"Lista de Jogos:";
 		int totalPreco = 0;
 		
 		for(Jogo jogosObtidos: super.getJogos()) {

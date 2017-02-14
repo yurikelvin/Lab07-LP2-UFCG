@@ -43,7 +43,7 @@ public class RPG extends Jogo{
 
 	@Override
 	public String toString() {
-		String rpg = "+ " + super.getNome() + " - RPG:" + FIM_DE_LINHA +
+		String rpg = FIM_DE_LINHA + "+ " + super.getNome() + " - RPG:" + FIM_DE_LINHA +
 						"==> Jogou " + super.getQtdJogadas() + " vez(es)" + FIM_DE_LINHA + 
 						"==> Zerou " + super.getQtdZeradas() + " vez(es)" + FIM_DE_LINHA +
 						"==> Maior score: " + super.getMaiorScore();

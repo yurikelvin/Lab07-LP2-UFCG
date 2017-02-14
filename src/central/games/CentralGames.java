@@ -163,7 +163,7 @@ public class CentralGames {
 	
 	@Override
 	public String toString() {
-		String loja = "=== Central P2-CG ===" + FIM_DE_LINHA + FIM_DE_LINHA;
+		String loja = "=== Central P2-CG ===" + FIM_DE_LINHA;
 		for(Usuario usuarios: meusUsuarios) {
 			loja += usuarios;
 		}
