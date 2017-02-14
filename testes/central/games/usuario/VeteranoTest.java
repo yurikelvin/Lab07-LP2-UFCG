@@ -54,6 +54,7 @@ public class VeteranoTest {
 			RPG gdw = new RPG("God of war", 30);
 			veterano.compraJogo(gdw);
 			veterano.compraJogo(gdw);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Usuario ja possui este jogo.", e.getMessage());
 		}
@@ -62,6 +63,7 @@ public class VeteranoTest {
 		
 		try {
 			veterano.compraJogo(null);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Jogo nao pode ser nulo", e.getMessage());
 		}
@@ -80,24 +82,28 @@ public class VeteranoTest {
 		// testa login e nome de usuario nulo/vazio
 		try {
 			Veterano vetera = new Veterano("Danerys", null);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Login de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			Veterano vetera = new Veterano("Bob Sponja", "");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Login de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			Veterano vetera = new Veterano(null, "loginDeTeste");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			Veterano vetera = new Veterano("", "loginDeTeste");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
@@ -132,12 +138,14 @@ public class VeteranoTest {
 		
 		try {
 			veterano.setNome("");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			veterano.setNome(null);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}

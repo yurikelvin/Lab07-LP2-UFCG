@@ -55,6 +55,7 @@ public class NoobTest {
 			RPG gdw = new RPG("God of war", 30);
 			meuNoob.compraJogo(gdw);
 			meuNoob.compraJogo(gdw);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Usuario ja possui este jogo.", e.getMessage());
 		}
@@ -63,6 +64,7 @@ public class NoobTest {
 		
 		try {
 			meuNoob.compraJogo(null);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Jogo nao pode ser nulo", e.getMessage());
 		}
@@ -81,24 +83,28 @@ public class NoobTest {
 		// testa login e nome de usuario nulo/vazio
 		try {
 			Noob newbie = new Noob("Danerys", null);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Login de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			Noob newbie = new Noob("Bob Sponja", "");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Login de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			Noob newbie = new Noob(null, "loginDeTeste");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			Noob newbie = new Noob("", "loginDeTeste");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
@@ -133,12 +139,14 @@ public class NoobTest {
 		
 		try {
 			meuNoob.setNome("");
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}
 		
 		try {
 			meuNoob.setNome(null);
+			fail();
 		}catch(Exception e) {
 			assertEquals("Nome de usuario nao pode ser vazio ou nulo", e.getMessage());
 		}

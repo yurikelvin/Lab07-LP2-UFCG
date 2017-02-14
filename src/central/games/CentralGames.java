@@ -33,7 +33,7 @@ public class CentralGames {
 	 */
 	public void adicionaUsuario(Usuario usuario) throws ValidacaoException{
 		
-		Validacao.validaObj(usuario);
+		Validacao.validaObj(usuario, "Usuario nao pode ser nulo.");
 		
 		boolean bemSucedido = meusUsuarios.add(usuario);
 		if(!bemSucedido) {
@@ -114,14 +114,13 @@ public class CentralGames {
 		Veterano novoVeterano = new Veterano("Veterano001", "Veterano01");
 		Usuario usuarioASerPromovido = this.getUsuario(login);
 		if(usuarioASerPromovido.getClass() != novoVeterano.getClass()) {
-			if(usuarioASerPromovido.getX2p() >= 1000) {
-				System.out.println(novoVeterano.getLogin());
+			if(getX2p(login) >= 1000) {
+
 				novoVeterano.setNome(usuarioASerPromovido.getNome());
 				novoVeterano.setLogin(usuarioASerPromovido.getLogin());
 				novoVeterano.adicionaX2p(usuarioASerPromovido.getX2p());
 				meusUsuarios.remove(usuarioASerPromovido);
-				
-				System.out.println(novoVeterano.getLogin());
+
 				
 				return meusUsuarios.add(novoVeterano);
 			}
@@ -151,6 +150,15 @@ public class CentralGames {
 		usuarioARegistrar.registraJogada(nomeDoJogo, score, zerou);
 		
 		
+	}
+	
+	public double getSaldo(String loginUsuario) throws ValidacaoException{
+		return getUsuario(loginUsuario).getQtdDinheiroDisponivel();
+	}
+	
+	public double getX2p(String loginUsuario) throws ValidacaoException {
+		
+		return getUsuario(loginUsuario).getX2p();
 	}
 	
 	@Override
