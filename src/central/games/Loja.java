@@ -19,63 +19,34 @@ import validacao.Validacao;
 
 public class Loja {
 
-	private CentralGames meuSistema;
+	private LojaController meuSistema;
 	
 	
 	public Loja() {
 
-		meuSistema = new CentralGames();
+		meuSistema = new LojaController();
 	}
 	
-	/** Adiciona um usuario no sistema.
-	 * {@link CentralGames#adicionaUsuario(Usuario)}
-	 * @param user Usuario a ser cadastrado no sistema.
-	 * @throws ValidacaoException Se usuario for nulo ou ja for cadastrado.
-	 */
 
-	public void adicionaUsuario(Usuario user) throws ValidacaoException{
-		meuSistema.adicionaUsuario(user);
+	public void adicionaUsuario(String nome, String login) {
+		try {
+			meuSistema.adicionaUsuario(nome, login);
+		}catch(ValidacaoException e) {
+			System.out.println("Nome ou login invalido.");
+		}catch(MissingResourceException e) {
+			System.out.println("Usuario ja cadastrado.");
+		}
+
 	}
 	
-	/**
-	 * Retorna um usuario do sistema.
-	 * 
-	 * {@link CentralGames#getUsuario(String)}
-	 * 
-	 * @param login Login do usuario
-	 * @return true se bem sucedida.
-	 * @throws ValidacaoException Se login for nulo.
-	 * @throws MissingResourceException Se o Usuario com o login nao for encontrado.
-	 */
-
-	public Usuario getUsuario(String login) throws ValidacaoException, MissingResourceException {
+	public Usuario getUsuario(String login) {
 		return meuSistema.getUsuario(login);
 	}
 	
-	/**
-	 * Deposita dinheiro a conta do usuario. Deposita 0 se valor for menor que zero.
-	 * {@link CentralGames#addFundos(String, int)}
-	 * @param login Login do usuario.
-	 * @param valor Valor a ser depositado.
-	 * @throws ValidacaoException Se login for nulo ou vazio.
-	 * @throws MissingResourceException Se o login nao tiver associado a nenhum Usuario no sistema.
-	 */
-
-	public void adicionaDinheiro(String login, int valor) throws ValidacaoException, MissingResourceException {
+	public void adicionaDinheiro(String login, int valor) {
 		meuSistema.addFundos(login, valor);
 	}
 
-	/**
-	 * Vende um jogo a um Usuario.
-	 * 
-	 * {@link CentralGames#compraJogo(String, Jogo)}
-	 * @param login Login do usuario.
-	 * @param jogo Jogo a ser vendido.
-	 * @return true se bem sucedido
-	 * @throws ValidacaoException Se login for nulo ou invalido.
-	 * @throws MissingResourceException Se usuario nao for encontrado.
-	 */
-	
 	public boolean vendeJogo(String login, Jogo jogo) throws ValidacaoException, MissingResourceException {
 		return meuSistema.compraJogo(login, jogo);
 	}
@@ -83,7 +54,7 @@ public class Loja {
 	/**
 	 * Transforma o usuario Noob em Veterano.
 	 * 
-	 * {@link CentralGames#upgrade(String)}
+	 * {@link LojaController#upgrade(String)}
 	 * 
 	 * @param login Login do Usuario
 	 * @return true se bem sucedido.

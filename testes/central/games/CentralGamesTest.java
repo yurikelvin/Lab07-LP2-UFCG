@@ -16,11 +16,11 @@ import junit.framework.Assert;
 
 public class CentralGamesTest {
 	
-	private CentralGames meuSistema;
+	private LojaController meuSistema;
 
 	@Before
 	public void setUp() throws Exception {
-		meuSistema = new CentralGames();
+		meuSistema = new LojaController();
 		
 		Veterano tsubakker = new Veterano("Yuri", "Tsubakker");
 		Noob slnsn = new Noob("Sol", "SLNSN");

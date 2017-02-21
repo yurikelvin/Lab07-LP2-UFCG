@@ -16,26 +16,22 @@ import validacao.Validacao;
  *
  */
 
-public class CentralGames {
+public class LojaController {
 	
 	private HashSet<Usuario> meusUsuarios;
 	
 	private static final String FIM_DE_LINHA = System.lineSeparator();
 
-	public CentralGames() {
+	public LojaController() {
 		meusUsuarios = new HashSet<>();
 	}
 	
-	/**
-	 *  Adiciona um usuario ao sistema.
-	 * @param usuario Objeto do tipo Usuario
-	 * @throws ValidacaoException se Usuario ja for cadastrado ou nulo.
-	 */
-	public void adicionaUsuario(Usuario usuario) throws ValidacaoException{
+
+	public void adicionaUsuario(String nome, String login) throws ValidacaoException{
 		
 		Validacao.validaObj(usuario, "Usuario nao pode ser nulo.");
 		
-		boolean bemSucedido = meusUsuarios.add(usuario);
+		boolean bemSucedido = meusUsuarios.add(new Usuario());
 		if(!bemSucedido) {
 			throw new ValidacaoException("Usuario ja cadastrado.");
 		}
