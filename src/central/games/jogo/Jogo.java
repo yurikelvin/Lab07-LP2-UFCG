@@ -103,20 +103,18 @@ public abstract class Jogo {
 	public void jogou() {
 		this.qtdJogadas ++;
 	}
-	/**
-	 * Cada Jogo possui um agrupamento que descreve sua jogabilidade.
-	 *  Adiciona jogabilidade ao Jogo.
-	 * 
-	 * @param jogabilidade  Estilo de jogo.
-	 * @return Se a jogabilidade foi adicionada com sucesso ao Jogo.
-	 * @throws ValidacaoException  Se jogabilidade for nulo.
-	 */
-	
-	public boolean adicionaJogabilidade(Jogabilidade jogabilidade) throws ValidacaoException {
 
-		Validacao.validaObj(jogabilidade, "Tipo de jogabilidade nao pode ser nulo");
+	
+	public boolean adicionaJogabilidade(String estilo) throws ValidacaoException {
 		
-		return this.jogabilidade.add(jogabilidade);
+		for(Jogabilidade j: Jogabilidade.values()) {
+			if(estilo.equalsIgnoreCase(j.getValor())) {
+				jogabilidade.add(j);
+				return true;
+			}
+		}
+		
+		throw new ValidacaoException("Estilo nao valido.");
 	}
 
 	/**

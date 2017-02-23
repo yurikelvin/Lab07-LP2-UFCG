@@ -13,7 +13,7 @@ import validacao.Validacao;
  * @author Yuri Silva
  */
 
-public class Noob extends Usuario {
+public class Noob implements Categoria {
 	
 	/**
 	 * Cria um tipo de Usuario Noob.
@@ -35,7 +35,7 @@ public class Noob extends Usuario {
 	@Override
 	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException{
 		
-		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
+
 		
 		if(super.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.9)) {
 			if(!super.temJogo(jogoAComprar)) {

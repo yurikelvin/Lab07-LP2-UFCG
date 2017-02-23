@@ -7,12 +7,24 @@ package central.games.jogo;
  *
  */
 public enum Jogabilidade {
+	
 
-	ONLINE,
-	OFFLINE,
-	MULTIPLAYER,
-	COOPERATIVO,
-	COMPETITIVO;
+	ONLINE("online"),
+	OFFLINE("offline"),
+	MULTIPLAYER("multiplayer"),
+	COOPERATIVO("cooperativo"),
+	COMPETITIVO("competitivo");
+	
+	private final String valor;
+
+	
+	Jogabilidade(String valor) {
+		this.valor = valor;
+	}
+	
+	public String getValor() {
+		return valor;
+	}
 	
 	
 	

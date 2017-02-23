@@ -104,7 +104,9 @@ public class Usuario {
 	 * @throws MissingResourceException Se dinheiro para a compra for insuficiente.
 	 */
 	
-	public abstract boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException;
+	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
+		
+	}
 
 
 	
