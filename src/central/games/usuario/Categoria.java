@@ -4,7 +4,11 @@ import central.games.jogo.Jogo;
 
 public interface Categoria {
 	
-	boolean compraJogo(Jogo jogoAComprar) throws Exception;
-	String toString();
+	int recompensar(Usuario usuario, String nomeJogo) throws Exception;
+	int punir(Usuario usuario, String nomeJogo) throws Exception;
+	String representacao();
+	int bonusNaCompraX2p();
+	double getDesconto();
+
 
 }

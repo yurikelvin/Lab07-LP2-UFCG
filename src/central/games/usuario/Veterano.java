@@ -18,59 +18,76 @@ import validacao.Validacao;
  *
  */
 
-public class Veterano extends Usuario {
-	
-	/**
-	 * Cria um tipo de Usuario Veterano.
-	 * 
-	 * @see Usuario#Usuario(String, String)
-	 * 
-	 * @param nome Nome do Usuario.
-	 * @param login Login do Usuario.
-	 * 
-	 * @throws ValidacaoException Se nome ou login for nulo ou vazio. 
-	 */
-
-	public Veterano(String nome, String login) throws ValidacaoException{
-		
-		super(nome, login);
-		super.adicionaX2p(1000);
-
-	}
+public class Veterano implements Categoria {
 	
 	@Override
-	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
-
-		Validacao.validaObj(jogoAComprar, "Jogo nao pode ser nulo");
+	public String representacao() {
 		
-		if(super.getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * 0.8)) {
-			if(!super.temJogo(jogoAComprar)) {
-				super.descontaDinheiro(jogoAComprar.getPreco() * 0.8);
-				super.adicionaX2p(15 * jogoAComprar.getPreco());
-				return super.adicionaJogo(jogoAComprar);
+		return  "Veterano";
+	}
+
+	@Override
+	public int bonusNaCompraX2p() {
+
+		return 15;
+	}
+
+	@Override
+	public double getDesconto() {
+
+		return 0.8;
+	}
+
+
+	public int recompensar(Usuario usuario, String nomeJogo) throws Exception{
+		Jogo jogo = usuario.getJogo(nomeJogo);
+		
+		HashSet<Jogabilidade> estilos = jogo.getJogabilidade();
+		Iterator<Jogabilidade> it = estilos.iterator();
+		int recompensa = 0;
+		while(it.hasNext()) {
+			Jogabilidade estilo = it.next();
+			if(estilo.getValor().equals("online")) {
+				recompensa += 10;
+				
+			} else if(estilo.getValor().equals("cooperativo")) {
+				recompensa += 20; 
+
 			}
-			throw new ValidacaoException("Usuario ja possui este jogo.");
 		}
 		
-		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");
+		return recompensa;
+		
 	}
 
-	@Override
-	public String toString() {
-		String veterano = FIM_DE_LINHA + super.getLogin() + FIM_DE_LINHA +
-						super.getNome() + " - Jogador Veterano" + FIM_DE_LINHA +
-						"Lista de Jogos:";
-		int totalPreco = 0;
+	public int punir(Usuario usuario, String nomeJogo) throws Exception{
+		Jogo jogo = usuario.getJogo(nomeJogo);
 		
-		for(Jogo jogosObtidos: super.getJogos()) {
-			veterano += jogosObtidos + FIM_DE_LINHA;
-			totalPreco += jogosObtidos.getPreco();
+		HashSet<Jogabilidade> estilos = jogo.getJogabilidade();
+		Iterator<Jogabilidade> it = estilos.iterator();
+		int totalX2p = usuario.getX2p();
+		int punicao = 0;
+		while(it.hasNext()) {
+			Jogabilidade estilo = it.next();
+			if(estilo.getValor().equals("offline")) {
+				punicao += (totalX2p - 20 >= 0) ? -20: 0; 
+				totalX2p -= 20;
+				
+			} else if(estilo.getValor().equals("competitivo")) {
+				punicao += (totalX2p - 20 >= 0) ? -20: 0; 
+				totalX2p -= 20;
+				
+			}
+		
+		
 		}
 		
-		veterano += "Total de preco dos jogos: R$ " + totalPreco + ",00" + FIM_DE_LINHA +
-				"--------------------------------------------";
-		return veterano;
+		return punicao;
 	}
+
+
+
+
 	
 	
 

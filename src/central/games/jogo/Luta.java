@@ -37,7 +37,7 @@ public class Luta extends Jogo {
 			this.zerou();
 		}
 		if(score > super.getMaiorScore()) {
-			this.setMaiorScore(score);
+			super.setMaiorScore(score);
 			return score / 1000;
 		}
 		

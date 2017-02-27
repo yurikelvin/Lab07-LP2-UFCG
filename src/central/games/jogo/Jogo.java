@@ -23,17 +23,7 @@ public abstract class Jogo {
 	public static final String FIM_DE_LINHA = System.lineSeparator();
 	
 	
-	/** 
-	 * Construtor que serve de base para as subclasses criarem um Jogo com os parametros especificados..
-	 * @param nome  o nome do Jogo.
-	 * @param preco  o preco do Jogo.
-	 * @throws ValidacaoException  Se nome for nulo ou vazio ou preco for menor ou igual a 0.
-	 */
-	
-	public Jogo(String nome, int preco) throws ValidacaoException{
-		
-		Validacao.validaString(nome, "Nome do jogo nao pode ser nulo ou vazio");
-		Validacao.validaInt(preco, "Preco do jogo nao pode ser negativo");
+	public Jogo(String nome, int preco) {
 
 		this.nome = nome;
 		this.preco = preco;
@@ -50,15 +40,7 @@ public abstract class Jogo {
 		return this.preco;
 	}
 	
-	/**
-	 * Modifica o preco atual do Jogo.
-	 * @param preco  novo preco a ser definido.
-	 * @throws ValidacaoException  Se preco for menor que zero.
-	 */
-
-	public void setPreco(int preco) throws ValidacaoException {
-		
-		Validacao.validaInt(preco, "Preco do jogo nao pode ser negativo");
+	public void setPreco(int preco) {
 		
 		this.preco = preco;
 	}
@@ -68,17 +50,9 @@ public abstract class Jogo {
 		return this.maiorScore;
 	}
 	
-	/**
-	 * Modifica a maior pontuacao atual feita pelos jogadores dentro do Jogo.
-	 * 
-	 * @param maiorScore  maior pontuacao feita.
-	 * @throws ValidacaoException  se maiorScore for menor que zero.
-	 */
 
 	public void setMaiorScore(int maiorScore) throws ValidacaoException{
 
-		Validacao.validaInt(maiorScore, "Score precisa ser maior que 0");
-		
 		this.maiorScore = maiorScore;
 		
 	}

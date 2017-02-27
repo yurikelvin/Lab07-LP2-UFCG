@@ -182,8 +182,8 @@ public class LutaTest {
 
 	@Test
 	public void testAdicionaEGetJogabilidade() throws Exception{
-		assertTrue(streetFighter.adicionaJogabilidade(Jogabilidade.MULTIPLAYER));
-		assertTrue(streetFighter.adicionaJogabilidade(Jogabilidade.OFFLINE));
+		assertTrue(streetFighter.adicionaJogabilidade("MULTIPLAYER"));
+		assertTrue(streetFighter.adicionaJogabilidade("OFFLINE"));
 		
 		HashSet<Jogabilidade> streetFighterJogabilidade = streetFighter.getJogabilidade();
 		Iterator<Jogabilidade> it = streetFighterJogabilidade.iterator();

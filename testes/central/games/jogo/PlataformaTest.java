@@ -184,9 +184,9 @@ public class PlataformaTest {
 
 	@Test
 	public void testAdicionaEGetJogabilidade() throws Exception{
-		assertTrue(minecraft.adicionaJogabilidade(Jogabilidade.MULTIPLAYER));
-		assertTrue(minecraft.adicionaJogabilidade(Jogabilidade.OFFLINE));
-		assertTrue(minecraft.adicionaJogabilidade(Jogabilidade.ONLINE));
+		assertTrue(minecraft.adicionaJogabilidade("MULTIPLAYER"));
+		assertTrue(minecraft.adicionaJogabilidade("OFFLINE"));
+		assertTrue(minecraft.adicionaJogabilidade("ONLINE"));
 		
 		HashSet<Jogabilidade> minecraftJogabilidade = minecraft.getJogabilidade();
 		Iterator<Jogabilidade> it = minecraftJogabilidade.iterator();

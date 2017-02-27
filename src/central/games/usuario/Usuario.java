@@ -5,46 +5,42 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.MissingResourceException;
 
+import central.games.jogo.FactoryDeJogo;
+import central.games.jogo.Jogabilidade;
 import central.games.jogo.Jogo;
+import central.games.jogo.RPG;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
-/**
- * Classe responsavel para servir de base para Tipos de Usuario.
- * 
- * @author Yuri Kelvin Moura Sousa e Silva
- *
- */
+
 
 public class Usuario {
 	
 	private String nome;
 	private String login;
 	private double qtdDinheiroDisponivel;
-	private int x2p;
+	private int    x2p;
+
 	
 	public static final String FIM_DE_LINHA = System.lineSeparator();
 
 	
 	private HashSet<Jogo> meusJogos;
+	private Categoria minhaCategoria;
 	
-	/**
-	 *  Construtor que serve de base para as subclasses criarem um novo tipo de Usuario.
-	 * @param nome Nome do Usuario.
-	 * @param login Login do Usuario.
-	 * @throws ValidacaoException Se nome ou login forem nulo ou vazios 
-	 */
+
 	
-	public Usuario(String nome, String login) throws ValidacaoException {
+	public Usuario(String nome, String login) {
 		
-		Validacao.validaString(nome, "Nome de usuario nao pode ser vazio ou nulo");
-		Validacao.validaString(login, "Login de usuario nao pode ser vazio ou nulo");
-		
+			
 		this.nome = nome;
 		this.login = login;
 		this.qtdDinheiroDisponivel = 0.0;
 		this.meusJogos = new HashSet<>();
 		this.x2p = 0;
+
+		minhaCategoria = new Noob();
+
 
 	}
 	
@@ -56,16 +52,9 @@ public class Usuario {
 		return nome;
 	}
 	
-	/**
-	 * Define um novo nome para o Usuario.
-	 * 
-	 * @param nome Novo nome do usuario.
-	 * @throws ValidacaoException Se usuario for vazio ou nulo.
-	 */
 
-	public void setNome(String nome) throws ValidacaoException {
+	public void setNome(String nome) {
 		
-		Validacao.validaString(nome, "Nome de usuario nao pode ser vazio ou nulo");
 		
 		this.nome = nome;
 	}
@@ -96,56 +85,61 @@ public class Usuario {
 		this.qtdDinheiroDisponivel -= (valor < 0) ? 0 : valor;
 	}
 	
-	/**
-	 *  Compra um determinado jogo, se o Usuario tiver dinheiro disponinvel.
-	 * @param jogoAComprar jogo a comprar
-	 * @return true se a compra for bem sucedida.
-	 * @throws ValidacaoException Se jogoAComprar for nulo ou usuario ja possuir jogoAComprar.
-	 * @throws MissingResourceException Se dinheiro para a compra for insuficiente.
-	 */
-	
+
 	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
+		if(getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * minhaCategoria.getDesconto())) {
+			if(!temJogo(jogoAComprar)) {
+				descontaDinheiro(jogoAComprar.getPreco() * minhaCategoria.getDesconto());
+				adicionaX2p(minhaCategoria.bonusNaCompraX2p() * jogoAComprar.getPreco());
+				this.upgradeCategoria();
+				return adicionaJogo(jogoAComprar);
+			}
+			throw new ValidacaoException("Usuario ja possui este jogo.");
+		}
 		
+		throw new MissingResourceException("Dinheiro insuficiente", "Usuario", "Preco");
 	}
 
 
 	
-	public boolean adicionaJogo(Jogo jogoAAdicionar) {
+	private boolean adicionaJogo(Jogo jogoAAdicionar) {
 		
 		return meusJogos.add(jogoAAdicionar);
 	}
 	
 	
-	/**
-	 * Soma experiencia ao Usuario, pode somar 0 se x2p for menor que zero.
-	 * @param x2p experiencia a ser somada
-	 */
-	
 	public void adicionaX2p(int x2p) {
-		this.x2p += (x2p < 0) ? 0 : x2p;
+		this.x2p += x2p;
 	}
 	
 	public int getX2p() {
 		return this.x2p;
 	}
 	
-	/**
-	 * @see Jogo#registraJogada(int, boolean)
-	 * @param nomeDoJogo  Nome do Jogo.
-	 * @param score Pontuacao do jogo
-	 * @param zerou Se o usuario chegou a zerar o jogo.
-
-	 * @throws ValidacaoException Se nome do jogo for nulo ou vazio.
-	 */
-	
-	public void registraJogada(String nomeDoJogo, int score, boolean zerou) throws ValidacaoException{
+	public void recompensar(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		
-		Validacao.validaString(nomeDoJogo, "Nome do jogo nao pode ser nulo ou vazio");
-
 		Jogo jogoARegistrar = this.getJogo(nomeDoJogo);
 		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou);
+		int recompensa = minhaCategoria.punir(this, nomeDoJogo);
+		this.adicionaX2p( x2pAcumulada + recompensa);
 		
-		this.adicionaX2p( x2pAcumulada );
+		this.upgradeCategoria();
+
+	}
+	
+
+	
+	public void punir(String nomeDoJogo, int score, boolean zerou) throws Exception{
+		
+		Jogo jogoARegistrar = this.getJogo(nomeDoJogo);
+		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou);
+		int punicao = minhaCategoria.punir(this, nomeDoJogo);
+
+		this.adicionaX2p( x2pAcumulada + punicao);
+		
+		if(this.getX2p() <= 1000) {
+			this.downgradeCategoria();
+		}
 	}
 	
 	public boolean temJogo(Jogo jogo) {
@@ -158,13 +152,10 @@ public class Usuario {
 	 * @param nomeDoJogo Nome do JOgo
 	 * @return O Jogo procurado.
 	 * @throws MissingResourceException Se o jogo nao for encontrado.
-	 * @throws ValidacaoException Se o nome do jogo for nulo ou vazio.
 	 */
 	
 	public Jogo getJogo(String nomeDoJogo) throws MissingResourceException, ValidacaoException{
 
-		Validacao.validaString(nomeDoJogo, "Nome do jogo nao pode ser nulo ou vazio");
-		
 		Iterator<Jogo> it = meusJogos.iterator();
 		while(it.hasNext()) {
 			Jogo jogoAProcurar  = it.next();
@@ -175,17 +166,38 @@ public class Usuario {
 		throw new MissingResourceException("Jogo nao encontrado", "Usuario", "Jogo");
 	}
 	
-	/**
-	 * Retorna um set com todos jogos que o Usuario possuir.
-	 * @return um set com todos jogos que o Usuario possuir.
-	 */
-	
 	public HashSet<Jogo> getJogos() {
 		return this.meusJogos;
 	}
 	
 	public void setJogos(HashSet<Jogo> jogos) {
 		this.meusJogos = jogos;
+	}
+	
+	public boolean upgradeCategoria() {
+		if(this.getX2p() <= 1000) {
+			return false;
+		}
+		
+		Noob noobTeste = new Noob();
+		if(minhaCategoria.getClass() == noobTeste.getClass()) {
+			minhaCategoria = new Veterano();
+
+			return true;
+			
+		}
+		return false;
+	}
+	
+	private boolean downgradeCategoria() {
+		
+		Veterano veteranoTeste = new Veterano();
+		if(minhaCategoria.getClass() == veteranoTeste.getClass()) {
+			minhaCategoria = new Noob();
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -215,8 +227,23 @@ public class Usuario {
 	
 
 
+	@Override
+	public String toString() {
+		String noob = FIM_DE_LINHA + "Jogador " + minhaCategoria.representacao() +
+						": " + getLogin() + FIM_DE_LINHA +
+						getNome() + " - " + getX2p() + " x2p"+ FIM_DE_LINHA +
+						"Lista de Jogos:";
+		int totalPreco = 0;
+		
+		for(Jogo jogosObtidos: getJogos()) {
+			noob += jogosObtidos + FIM_DE_LINHA;
+			totalPreco += jogosObtidos.getPreco();
+		}
+		
+		noob += "Total de preco dos jogos: R$ " + totalPreco + ",00" + FIM_DE_LINHA +
+				"--------------------------------------------";
+		return noob;
+	}
 	
 	
-	
-
 }

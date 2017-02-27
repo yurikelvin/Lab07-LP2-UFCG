@@ -1,22 +1,21 @@
-package central.games;
-
-import central.games.jogo.Jogo;
-import central.games.jogo.Luta;
-import central.games.jogo.Plataforma;
-import central.games.jogo.RPG;
+package central.games.jogo;
 
 public class FactoryDeJogo {
+	
+	private static final String RPG = "rpg";
+	private static final String PLATAFORMA = "plataforma";
+	private static final String LUTA = "luta";
 
 	public Jogo criaJogo(String nome, int preco, String tipo, String estilos) throws Exception{
 		
+		
 		switch(tipo.toLowerCase()) {
-			case "rpg":
+			case RPG:
 				return this.criaJogoRpg(nome, preco, estilos);
-			case "plataforma":
+			case PLATAFORMA:
 				return this.criaJogoPlataforma(nome, preco, estilos);
-			case "luta":
+			case LUTA:
 				return this.criaJogoLuta(nome, preco, estilos);
-			
 			default:
 				throw new Exception("Tipo de jogo nao existente.");
 		}
@@ -55,4 +54,6 @@ public class FactoryDeJogo {
 		}
 
 	}
+	
+	
 }

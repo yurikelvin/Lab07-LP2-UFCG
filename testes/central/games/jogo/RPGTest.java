@@ -192,8 +192,8 @@ public class RPGTest {
 	@Test
 	public void testAdicionaEGetJogabilidade() throws Exception{
 		
-		assertTrue(ragnarok.adicionaJogabilidade(Jogabilidade.MULTIPLAYER));
-		assertTrue(ragnarok.adicionaJogabilidade(Jogabilidade.ONLINE));
+		assertTrue(ragnarok.adicionaJogabilidade("MULTIPLAYER"));
+		assertTrue(ragnarok.adicionaJogabilidade("ONLINE"));
 		
 		HashSet<Jogabilidade> ragnarokJogabilidade = ragnarok.getJogabilidade();
 		Iterator<Jogabilidade> it = ragnarokJogabilidade.iterator();
