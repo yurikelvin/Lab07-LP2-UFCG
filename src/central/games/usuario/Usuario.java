@@ -87,10 +87,10 @@ public class Usuario {
 	
 
 	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
-		if(getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * minhaCategoria.getDesconto())) {
+		if(getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * minhaCategoria.getDesconto())) { // chamada polimorfica
 			if(!temJogo(jogoAComprar)) {
-				descontaDinheiro(jogoAComprar.getPreco() * minhaCategoria.getDesconto());
-				adicionaX2p(minhaCategoria.bonusNaCompraX2p() * jogoAComprar.getPreco());
+				descontaDinheiro(jogoAComprar.getPreco() * minhaCategoria.getDesconto()); // chamada polimorfica
+				adicionaX2p(minhaCategoria.bonusNaCompraX2p() * jogoAComprar.getPreco()); // chamada polimorfica
 			//	this.upgradeCategoria();
 				return adicionaJogo(jogoAComprar);
 			}
@@ -119,8 +119,8 @@ public class Usuario {
 	public void recompensar(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		
 		Jogo jogoARegistrar = this.getJogo(nomeDoJogo);
-		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou);
-		int recompensa = minhaCategoria.recompensar(this, nomeDoJogo);
+		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou); // chamada polimorfica
+		int recompensa = minhaCategoria.recompensar(this, nomeDoJogo); // chamada polimorfica
 		this.adicionaX2p( x2pAcumulada + recompensa);
 		
 	//	this.upgradeCategoria();
@@ -132,8 +132,8 @@ public class Usuario {
 	public void punir(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		
 		Jogo jogoARegistrar = this.getJogo(nomeDoJogo);
-		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou);
-		int punicao = minhaCategoria.punir(this, nomeDoJogo);
+		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou); // chamada polimorfica
+		int punicao = minhaCategoria.punir(this, nomeDoJogo); // chamada polimorfica
 
 		this.adicionaX2p( x2pAcumulada + punicao);
 		
@@ -232,7 +232,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		String noob = FIM_DE_LINHA + "Jogador " + minhaCategoria.representacao() +
+		String noob = FIM_DE_LINHA + "Jogador " + minhaCategoria.representacao() + // chamada polimorfica
 						": " + getLogin() + FIM_DE_LINHA +
 						getNome() + " - " + getX2p() + " x2p"+ FIM_DE_LINHA +
 						"Lista de Jogos:";

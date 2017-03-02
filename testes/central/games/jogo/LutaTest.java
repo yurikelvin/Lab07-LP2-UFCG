@@ -56,36 +56,6 @@ public class LutaTest {
 
 	}
 
-	@Test
-	public void testLutaWithExceptions() {
-		// Teste de nome nulo, vazio e preco negativo
-		
-		try {
-			Luta nomeNulo = new Luta(null, 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Nome do jogo nao pode ser nulo ou vazio", e.getMessage());
-			}
-		
-		try {
-			Luta nomeVazio = new Luta("", 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Nome do jogo nao pode ser nulo ou vazio", e.getMessage());
-		}
-		
-		try {
-			Luta precoNegativo = new Luta("Preco Negativo", -5);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Preco do jogo nao pode ser negativo", e.getMessage());
-		}
-	}
-
-/*	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}*/
 
 	@Test
 	public void testJogo() throws Exception {
@@ -108,16 +78,6 @@ public class LutaTest {
 		assertEquals(100, streetFighter.getPreco());
 	}
 	
-	@Test
-	public void testSetPrecoWithException() {
-		
-		try {
-			streetFighter.setPreco(- 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Preco do jogo nao pode ser negativo", e.getMessage());
-		}
-	}
 
 	@Test
 	public void testGetMaiorScore() throws Exception{
@@ -132,18 +92,6 @@ public class LutaTest {
 		assertEquals(500, streetFighter.getMaiorScore());
 	}
 	
-	@Test
-	public void testSetMaiorScoreWithException() throws Exception {
-		try {
-			streetFighter.setMaiorScore(- 500);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Score precisa ser maior que 0", e.getMessage());
-		}
-		
-	
-	}
-
 	@Test
 	public void testGetQtdZeradas() throws Exception{
 		assertEquals(0, streetFighter.getQtdZeradas());

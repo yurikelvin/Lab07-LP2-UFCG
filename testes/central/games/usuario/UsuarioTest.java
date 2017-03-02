@@ -39,7 +39,7 @@ public class UsuarioTest {
 		
 		meuUsuario.descontaDinheiro(1000);
 		
-		// Teste comprando jogo com dinheiro insuficiente.
+		// Teste comprando jogo com dinheiro insuficiente. NOOB
 		try {
 			
 			RPG gdw = new RPG("God of war", 30);
@@ -49,7 +49,7 @@ public class UsuarioTest {
 		}catch(Exception e) {
 			assertEquals("Dinheiro insuficiente", e.getMessage());
 		}
-		// Teste comprando duas vezes o jogo.
+		// Teste comprando duas vezes o jogo. NOOB
 		try {
 			meuUsuario.depositaDinheiro(100);
 			RPG gdw = new RPG("God of war", 30);
@@ -60,14 +60,6 @@ public class UsuarioTest {
 			assertEquals("Usuario ja possui este jogo.", e.getMessage());
 		}
 		
-		// Teste jogo nulo.
-		
-		try {
-			meuUsuario.compraJogo(null);
-			fail();
-		}catch(Exception e) {
-			assertEquals("Jogo nao pode ser nulo", e.getMessage());
-		}
 		
 	}
 
@@ -158,7 +150,18 @@ public class UsuarioTest {
 		assertEquals(500, meuUsuario.getX2p());
 		
 		meuUsuario.adicionaX2p(- 500);
-		assertEquals(500, meuUsuario.getX2p());
+		assertEquals(0, meuUsuario.getX2p());
+	}
+	
+
+	
+	@Test
+	public void testPunir() throws Exception {
+		
+		meuUsuario.compraJogo(new RPG("Final Fantasy", 30));
+		
+		
+		
 	}
 
 //	@Test

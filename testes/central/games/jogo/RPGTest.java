@@ -37,33 +37,6 @@ public class RPGTest {
 	}
 
 	@Test
-	public void testRPGWithExceptions() {
-		
-		// Teste de nome nulo, vazio e preco negativo
-		
-		try {
-			RPG nomeNulo = new RPG(null, 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Nome do jogo nao pode ser nulo ou vazio", e.getMessage());
-			}
-		
-		try {
-			RPG nomeVazio = new RPG("", 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Nome do jogo nao pode ser nulo ou vazio", e.getMessage());
-		}
-		
-		try {
-			RPG precoNegativo = new RPG("Preco Negativo", -5);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Preco do jogo nao pode ser negativo", e.getMessage());
-		}
-	}
-	
-	@Test
 	public void testRegistraJogada() throws Exception{
 
 		
@@ -112,18 +85,6 @@ public class RPGTest {
 		ragnarok.setPreco(50);
 		assertEquals(50, ragnarok.getPreco());
 	}
-	
-	@Test
-	public void testSetPrecoWithException() throws Exception {
-		try {
-			ragnarok.setPreco(-50);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Preco do jogo nao pode ser negativo", e.getMessage());
-		}
-		
-
-	}
 
 	@Test
 	public void testGetMaiorScore() throws Exception {
@@ -138,18 +99,6 @@ public class RPGTest {
 	public void testSetMaiorScore() throws Exception {
 		ragnarok.setMaiorScore(500);
 		assertEquals(500, ragnarok.getMaiorScore());
-	}
-	
-	@Test
-	public void testSetMaiorScoreWithException() throws Exception {
-		try {
-			ragnarok.setMaiorScore(- 500);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Score precisa ser maior que 0", e.getMessage());
-		}
-		
-	
 	}
 
 	@Test

@@ -58,36 +58,6 @@ public class PlataformaTest {
 
 	}
 
-	@Test
-	public void testLutaWithExceptions() {
-		// Teste de nome nulo, vazio e preco negativo
-		
-		try {
-			Plataforma nomeNulo = new Plataforma(null, 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Nome do jogo nao pode ser nulo ou vazio", e.getMessage());
-			}
-		
-		try {
-			Plataforma nomeVazio = new Plataforma("", 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Nome do jogo nao pode ser nulo ou vazio", e.getMessage());
-		}
-		
-		try {
-			Plataforma precoNegativo = new Plataforma("Preco Negativo", -5);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Preco do jogo nao pode ser negativo", e.getMessage());
-		}
-	}
-
-/*	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}*/
 
 	@Test
 	public void testJogo() throws Exception {
@@ -111,17 +81,6 @@ public class PlataformaTest {
 	}
 	
 	@Test
-	public void testSetPrecoWithException() {
-		
-		try {
-			minecraft.setPreco(- 100);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Preco do jogo nao pode ser negativo", e.getMessage());
-		}
-	}
-
-	@Test
 	public void testGetMaiorScore() throws Exception{
 		minecraft.setMaiorScore(500);
 		assertEquals(500, minecraft.getMaiorScore());
@@ -134,17 +93,6 @@ public class PlataformaTest {
 		assertEquals(500, minecraft.getMaiorScore());
 	}
 	
-	@Test
-	public void testSetMaiorScoreWithException() throws Exception {
-		try {
-			minecraft.setMaiorScore(- 500);
-			Assert.fail();
-		}catch(Exception e) {
-			assertEquals("Score precisa ser maior que 0", e.getMessage());
-		}
-		
-	
-	}
 
 	@Test
 	public void testGetQtdZeradas() throws Exception{
