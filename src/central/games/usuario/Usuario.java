@@ -91,7 +91,7 @@ public class Usuario {
 			if(!temJogo(jogoAComprar)) {
 				descontaDinheiro(jogoAComprar.getPreco() * minhaCategoria.getDesconto());
 				adicionaX2p(minhaCategoria.bonusNaCompraX2p() * jogoAComprar.getPreco());
-				this.upgradeCategoria();
+			//	this.upgradeCategoria();
 				return adicionaJogo(jogoAComprar);
 			}
 			throw new ValidacaoException("Usuario ja possui este jogo.");
@@ -120,10 +120,10 @@ public class Usuario {
 		
 		Jogo jogoARegistrar = this.getJogo(nomeDoJogo);
 		int x2pAcumulada = jogoARegistrar.registraJogada(score, zerou);
-		int recompensa = minhaCategoria.punir(this, nomeDoJogo);
+		int recompensa = minhaCategoria.recompensar(this, nomeDoJogo);
 		this.adicionaX2p( x2pAcumulada + recompensa);
 		
-		this.upgradeCategoria();
+	//	this.upgradeCategoria();
 
 	}
 	
@@ -137,9 +137,8 @@ public class Usuario {
 
 		this.adicionaX2p( x2pAcumulada + punicao);
 		
-		if(this.getX2p() <= 1000) {
-			this.downgradeCategoria();
-		}
+		this.downgradeCategoria();
+
 	}
 	
 	public boolean temJogo(Jogo jogo) {
@@ -190,6 +189,10 @@ public class Usuario {
 	}
 	
 	private boolean downgradeCategoria() {
+		
+		if(this.getX2p() > 1000) {
+			return false;
+		}
 		
 		Veterano veteranoTeste = new Veterano();
 		if(minhaCategoria.getClass() == veteranoTeste.getClass()) {

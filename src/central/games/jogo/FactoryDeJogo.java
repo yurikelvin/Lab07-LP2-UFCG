@@ -48,6 +48,7 @@ public class FactoryDeJogo {
 	}
 	
 	private void adicionaEstilos(Jogo jogoAAdicionarEstilo, String estilos) throws Exception {
+		
 		String[] estilo = estilos.trim().split(" ");
 		for(String e: estilo) {
 			jogoAAdicionarEstilo.adicionaJogabilidade(e);
