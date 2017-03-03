@@ -23,7 +23,7 @@ public class Plataforma extends Jogo {
 	 * 
 	 */
 
-	public Plataforma(String nome, int preco) throws ValidacaoException{
+	public Plataforma(String nome, int preco) {
 		super(nome, preco);
 
 	}

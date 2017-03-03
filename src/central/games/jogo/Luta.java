@@ -21,7 +21,7 @@ public class Luta extends Jogo {
 	 * @throws ValidacaoException Se nome for nulo ou vazio e preco for menor que 0.
 	 */
 	
-	public Luta(String nome, int preco) throws ValidacaoException {
+	public Luta(String nome, int preco) {
 		super(nome, preco);
 
 	}

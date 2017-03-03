@@ -78,6 +78,12 @@ public abstract class Jogo {
 		this.qtdJogadas ++;
 	}
 
+	/**
+	 * 
+	 * @param estilo Modalidade do jogo.
+	 * @return true se bem sucedido.
+	 * @throws ValidacaoException Se a modalidade passada for invalida.
+	 */
 	
 	public boolean adicionaJogabilidade(String estilo) throws ValidacaoException {
 		

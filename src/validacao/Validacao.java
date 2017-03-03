@@ -8,7 +8,7 @@ public class Validacao {
 		if(s == null) {
 			throw new NullPointerException();
 		}
-		if(s.equals("")) {
+		if(s.trim().equals("")) {
 			throw new IllegalArgumentException();
 		}
 	}
@@ -17,21 +17,21 @@ public class Validacao {
 		if(s == null) {
 			throw new NullPointerException(msg);
 		}
-		if(s.equals("")) {
+		if(s.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
 		if(b == null) {
 			throw new NullPointerException(msg);
 		}
-		if(b.equals("")) {
+		if(b.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
 		if(c == null) {
 			throw new NullPointerException(msg);
 		}
-		if(c.equals("")) {
+		if(c.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
@@ -42,28 +42,28 @@ public class Validacao {
 		if(s == null) {
 			throw new NullPointerException(msg);
 		}
-		if(s.equals("")) {
+		if(s.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
 		if(b == null) {
 			throw new NullPointerException(msg);
 		}
-		if(b.equals("")) {
+		if(b.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
 		if(c == null) {
 			throw new NullPointerException(msg);
 		}
-		if(c.equals("")) {
+		if(c.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
 		if(a == null) {
 			throw new NullPointerException(msg);
 		}
-		if(a.equals("")) {
+		if(a.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
@@ -74,7 +74,7 @@ public class Validacao {
 		if(s == null) {
 			throw new NullPointerException(msg);
 		}
-		if(s.equals("")) {
+		if(s.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 	}
@@ -83,14 +83,14 @@ public class Validacao {
 		if(s == null) {
 			throw new NullPointerException(msg);
 		}
-		if(s.equals("")) {
+		if(s.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 		
 		if(c == null) {
 			throw new NullPointerException(msg);
 		}
-		if(c.equals("")) {
+		if(c.trim().equals("")) {
 			throw new IllegalArgumentException(msg);
 		}
 	}

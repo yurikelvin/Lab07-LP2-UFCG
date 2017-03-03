@@ -9,10 +9,20 @@ import central.games.jogo.Jogo;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
+/**
+ * Classe que representa uma possivel categoria do Usuario.
+ * @author Yuri Silva.
+ *
+ */
 
 public class Noob implements Categoria {
 	
-
+	private static final int RECOMPENSA_OFFLINE = 30;
+	private static final int RECOMPENSA_MULTIPLAYER = 10;
+	
+	private static final int PUNICAO_ONLINE = 10;
+	private static final int PUNICAO_COMPETITIVO = 20;
+	private static final int PUNICAO_COOPERATIVO = 50;
 
 
 	@Override
@@ -20,6 +30,10 @@ public class Noob implements Categoria {
 		
 		return  "Noob";
 	}
+	
+	/**
+	 * Recompensa o Usuario Noob caso o jogo em questao seja "offline" ou "multiplayer"
+	 */
 
 	public int recompensar(Usuario usuario, String nomeJogo) throws Exception{
 		Jogo jogo = usuario.getJogo(nomeJogo);
@@ -30,10 +44,10 @@ public class Noob implements Categoria {
 		while(it.hasNext()) {
 			Jogabilidade estilo = it.next();
 			if(estilo.getValor().equals("offline")) {
-				recompensa += 30;
+				recompensa += RECOMPENSA_OFFLINE;
 				
 			} else if(estilo.getValor().equals("multiplayer")) {
-				recompensa += 10; 
+				recompensa += RECOMPENSA_MULTIPLAYER; 
 
 			}
 		}
@@ -41,6 +55,10 @@ public class Noob implements Categoria {
 		return recompensa;
 		
 	}
+	
+	/**
+	 * Pune um Usuario Noob caso o jogo em questao seja "online", "competitivo" e "cooperativo"
+	 */
 
 	public int punir(Usuario usuario, String nomeJogo) throws Exception{
 		Jogo jogo = usuario.getJogo(nomeJogo);
@@ -53,15 +71,15 @@ public class Noob implements Categoria {
 			Jogabilidade estilo = it.next();
 			if(estilo.getValor().equals("online")) {
 				punicao += (totalX2p - 10 >= 0) ? -10: 0; 
-				totalX2p -= 10;
+				totalX2p -= PUNICAO_ONLINE;
 				
 			} else if(estilo.getValor().equals("competitivo")) {
 				punicao += (totalX2p - 20 >= 0) ? -20: 0; 
-				totalX2p -= 20;
+				totalX2p -= PUNICAO_COMPETITIVO;
 				
 			} else if(estilo.getValor().equals("cooperativo")) {
 				punicao += (totalX2p - 50 >= 0) ? -50: 0;
-				totalX2p -= 50;
+				totalX2p -= PUNICAO_COOPERATIVO;
 				
 			}
 		}

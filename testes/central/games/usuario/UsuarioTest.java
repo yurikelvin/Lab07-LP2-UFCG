@@ -26,30 +26,55 @@ public class UsuarioTest {
 
 	@Test
 	public void testCompraJogo() throws Exception {
-		RPG gdw = new RPG("God of war", 30);
+		RPG gdw = new RPG("God of war", 300);
 		assertTrue(meuUsuario.compraJogo(gdw));
-		// Testando desconto de 10% sobre a compra.
-		assertEquals(973.0, meuUsuario.getQtdDinheiroDisponivel(), 0.01);
+		// Testando desconto de 10% sobre a compra. NOOB
+		assertEquals(730.0, meuUsuario.getQtdDinheiroDisponivel(), 0.01);
+		assertEquals(3000, meuUsuario.getX2p()); // Testando bonus de x2p para Noob
 		assertTrue(gdw.equals(meuUsuario.getJogo("God of war")));
+		// Testando desconto de 20% sobre a compra. VETERANO
+		meuUsuario.upgradeCategoria();
+		RPG rpg = new RPG("Final Fantasy", 300);
+		assertTrue(meuUsuario.compraJogo(rpg));
+		assertEquals(490.0, meuUsuario.getQtdDinheiroDisponivel(), 0.001);
+		assertEquals(7500, meuUsuario.getX2p()); // Testando bonus de x2p para Veterano
+		assertTrue(rpg.equals(meuUsuario.getJogo("Final Fantasy")));
+		
+		
 		
 	}
 	
 	@Test
 	public void testeCompraJogoWithExceptions() throws Exception {
 		
-		meuUsuario.descontaDinheiro(1000);
+		meuUsuario.descontaDinheiro(1000); // tira o dinheiro existente na conta
 		
 		// Teste comprando jogo com dinheiro insuficiente. NOOB
 		try {
 			
 			RPG gdw = new RPG("God of war", 30);
-			meuUsuario.depositaDinheiro(20);
 			meuUsuario.compraJogo(gdw);
 			Assert.fail();
 		}catch(Exception e) {
 			assertEquals("Dinheiro insuficiente", e.getMessage());
 		}
-		// Teste comprando duas vezes o jogo. NOOB
+		// Teste comprando jogo com dinheiro insuficiente. VETERANO
+		try {
+			RPG gdw = new RPG("God of war", 300);
+			assertEquals(0, meuUsuario.getQtdDinheiroDisponivel(), 0.001);
+			meuUsuario.depositaDinheiro(270);
+			assertEquals(270.0, meuUsuario.getQtdDinheiroDisponivel(), 0.001);
+			meuUsuario.compraJogo(gdw);
+			assertEquals(0, meuUsuario.getQtdDinheiroDisponivel(), 0.001);
+			meuUsuario.upgradeCategoria();
+			RPG tk = new RPG("The K", 30);
+			meuUsuario.compraJogo(tk);
+			Assert.fail();
+			
+		}catch(Exception e) {
+			assertEquals("Dinheiro insuficiente", e.getMessage());
+		}
+		// Teste comprando duas vezes o jogo. 
 		try {
 			meuUsuario.depositaDinheiro(100);
 			RPG gdw = new RPG("God of war", 30);
@@ -156,41 +181,81 @@ public class UsuarioTest {
 
 	
 	@Test
-	public void testPunir() throws Exception {
+	public void testPunirNoob() throws Exception {
 		
-		meuUsuario.compraJogo(new RPG("Final Fantasy", 30));
+		
+		RPG rpg = new RPG("Final Fantasy", 30);
+		rpg.adicionaJogabilidade("cooperativo");
+		rpg.adicionaJogabilidade("online");
+		
+		meuUsuario.compraJogo(rpg);
+		assertEquals(300.0, meuUsuario.getX2p(), 0.001);
+		
+		meuUsuario.punir("Final Fantasy", 30000, false);
+		assertEquals(250, meuUsuario.getX2p());
+		
+		meuUsuario.punir("Final Fantasy", 30000, false);
+		assertEquals(200, meuUsuario.getX2p());
+		
 		
 		
 		
 	}
+	
+	@Test
+	public void testPunirVeterano() throws Exception {
+		
+		
+		RPG rpg = new RPG("Final Fantasy", 300);
+		rpg.adicionaJogabilidade("competitivo");
+		rpg.adicionaJogabilidade("offline");
+		
+		meuUsuario.compraJogo(rpg);
+		
+		assertEquals(3000, meuUsuario.getX2p());
+		assertTrue(meuUsuario.upgradeCategoria());
+		
+		meuUsuario.punir("Final Fantasy", 30, false);
+		assertEquals(2970, meuUsuario.getX2p());
+		
+		
+	}
+	
+	@Test
+	public void testRecompensarNoob() throws Exception {
+		RPG rpg = new RPG("Final Fantasy", 30);
+		rpg.adicionaJogabilidade("offline");
+		rpg.adicionaJogabilidade("multiplayer");
+		rpg.adicionaJogabilidade("competitivo");
+		
+		meuUsuario.compraJogo(rpg);
+		assertEquals(300.0, meuUsuario.getX2p(), 0.001);
+		
+		meuUsuario.recompensar("Final Fantasy", 30000, false); // vai receber 10 por ter jogado
+		assertEquals(350, meuUsuario.getX2p());
+		
+		meuUsuario.recompensar("Final Fantasy", 30000, false); // vai receber 10 por ter jogado
+		assertEquals(400, meuUsuario.getX2p());
+		
+	}
 
-//	@Test
-//	public void testRegistraJogada() throws Exception {
-//		
-//		meuUsuario.adicionaJogo(new RPG("Final Fantasy", 30));
-//		
-//		meuUsuario.registraJogada("Final Fantasy", 500, true);
-//		assertEquals(10, meuUsuario.getX2p());
-//		
-//		meuUsuario.adicionaJogo(new Plataforma("Crash bandicoot", 30));
-//		meuUsuario.registraJogada("Crash bandicoot", 2000, true);
-//		
-//		assertEquals(30, meuUsuario.getX2p());
-//		
-//		meuUsuario.adicionaJogo(new Luta("The King of Fighters", 30));
-//		meuUsuario.registraJogada("The King of Fighters", 2000, true);
-//		
-//		assertEquals(32, meuUsuario.getX2p());
-//		
-//		meuUsuario.registraJogada("Crash bandicoot", 3200, false);
-//		
-//		assertEquals(32, meuUsuario.getX2p());
-//		
-//		
-//		
-//		
-//	}
+	@Test
+	public void testRecompensarVeterano() throws Exception {
+		RPG rpg = new RPG("Final Fantasy", 300);
+		rpg.adicionaJogabilidade("online");
+		rpg.adicionaJogabilidade("cooperativo");
 
+		meuUsuario.compraJogo(rpg);
+		assertEquals(3000.0, meuUsuario.getX2p(), 0.001);
+		meuUsuario.upgradeCategoria();
+		
+		
+		meuUsuario.recompensar("Final Fantasy", 30000, false); // vai receber 10 por ter jogado
+		assertEquals(3040, meuUsuario.getX2p());
+		
+		meuUsuario.recompensar("Final Fantasy", 30000, false); // vai receber 10 por ter jogado
+		assertEquals(3080, meuUsuario.getX2p());
+	}
 	@Test
 	public void testGetJogo() throws Exception {
 		RPG ff = new RPG("Final Fantasy", 30);

@@ -20,6 +20,13 @@ import validacao.Validacao;
 
 public class Veterano implements Categoria {
 	
+	private static final int RECOMPENSA_ONLINE = 10;
+	private static final int RECOMPENSA_COOPERATIVO = 20;
+	
+	private static final int PUNICAO_OFFLINE = 20;
+	private static final int PUNICAO_COMPETITIVO = 20;
+
+	
 	@Override
 	public String representacao() {
 		
@@ -38,6 +45,9 @@ public class Veterano implements Categoria {
 		return 0.8;
 	}
 
+	/**
+	 * Recompensa o Usuario Veterano caso o jogo em questao seja online ou cooperativo
+	 */
 
 	public int recompensar(Usuario usuario, String nomeJogo) throws Exception{
 		Jogo jogo = usuario.getJogo(nomeJogo);
@@ -48,10 +58,10 @@ public class Veterano implements Categoria {
 		while(it.hasNext()) {
 			Jogabilidade estilo = it.next();
 			if(estilo.getValor().equals("online")) {
-				recompensa += 10;
+				recompensa += RECOMPENSA_ONLINE;
 				
 			} else if(estilo.getValor().equals("cooperativo")) {
-				recompensa += 20; 
+				recompensa += RECOMPENSA_COOPERATIVO; 
 
 			}
 		}
@@ -59,6 +69,10 @@ public class Veterano implements Categoria {
 		return recompensa;
 		
 	}
+	
+	/**
+	 * Pune o usuario veterano caso o Jogo seja offline ou competitivo
+	 */
 
 	public int punir(Usuario usuario, String nomeJogo) throws Exception{
 		Jogo jogo = usuario.getJogo(nomeJogo);
@@ -71,11 +85,11 @@ public class Veterano implements Categoria {
 			Jogabilidade estilo = it.next();
 			if(estilo.getValor().equals("offline")) {
 				punicao += (totalX2p - 20 >= 0) ? -20: 0; 
-				totalX2p -= 20;
+				totalX2p -= PUNICAO_OFFLINE;
 				
 			} else if(estilo.getValor().equals("competitivo")) {
 				punicao += (totalX2p - 20 >= 0) ? -20: 0; 
-				totalX2p -= 20;
+				totalX2p -= PUNICAO_COMPETITIVO;
 				
 			}
 		

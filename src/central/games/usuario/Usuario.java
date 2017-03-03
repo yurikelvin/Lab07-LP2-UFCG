@@ -5,14 +5,19 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.MissingResourceException;
 
-import central.games.jogo.FactoryDeJogo;
+import central.games.jogo.FactoryDeJogoTest;
 import central.games.jogo.Jogabilidade;
 import central.games.jogo.Jogo;
 import central.games.jogo.RPG;
 import exception.ValidacaoException;
 import validacao.Validacao;
 
-
+/**
+ * Classe responsavel por representar um Usuario em uma plataforma de jogos.
+ * 
+ * @author Yuri Silva
+ *
+ */
 
 public class Usuario {
 	
@@ -85,13 +90,22 @@ public class Usuario {
 		this.qtdDinheiroDisponivel -= (valor < 0) ? 0 : valor;
 	}
 	
+	/**
+	 * Compra um jogo se o usuario tiver dinheiro disponivel e ganha um bonus de x2p por ter comprado o Jogo.
+	 * Adiciona a biblioteca de jogos do Usuario o jogo.
+	 * 
+	 * @param jogoAComprar Jogo a comprar.
+	 * @return True se bem sucedido.
+	 * @throws ValidacaoException Se o usuario ja possuir o jogo.
+	 * @throws MissingResourceException Se dinheiro for insuficiente.
+	 */
 
 	public boolean compraJogo(Jogo jogoAComprar) throws ValidacaoException, MissingResourceException {
 		if(getQtdDinheiroDisponivel() >= (jogoAComprar.getPreco() * minhaCategoria.getDesconto())) { // chamada polimorfica
 			if(!temJogo(jogoAComprar)) {
 				descontaDinheiro(jogoAComprar.getPreco() * minhaCategoria.getDesconto()); // chamada polimorfica
 				adicionaX2p(minhaCategoria.bonusNaCompraX2p() * jogoAComprar.getPreco()); // chamada polimorfica
-			//	this.upgradeCategoria();
+
 				return adicionaJogo(jogoAComprar);
 			}
 			throw new ValidacaoException("Usuario ja possui este jogo.");
@@ -109,12 +123,26 @@ public class Usuario {
 	
 	
 	public void adicionaX2p(int x2p) {
+		
+		
 		this.x2p += x2p;
+		
+	//	this.upgradeCategoria(); // Habilitar caso queira troca de Noob/Veterano automaticamente
 	}
 	
 	public int getX2p() {
 		return this.x2p;
 	}
+	
+	/**
+	 *  Recompensa um usuario de acordo com seu desempenho no jogo e de acordo com a modalidade do Jogo.
+	 *  Depende do tipo de Usuario, se noob ou veterano.
+	 * {@link Jogo#registraJogada(int, boolean)}
+	 * @param nomeDoJogo Nome do jogo.
+	 * @param score Score obtido.
+	 * @param zerou Se zerou o jogo.
+	 * @throws Exception Se o jogo nao for encontrado.
+	 */
 	
 	public void recompensar(String nomeDoJogo, int score, boolean zerou) throws Exception{
 		
@@ -123,9 +151,19 @@ public class Usuario {
 		int recompensa = minhaCategoria.recompensar(this, nomeDoJogo); // chamada polimorfica
 		this.adicionaX2p( x2pAcumulada + recompensa);
 		
-	//	this.upgradeCategoria();
+
 
 	}
+	
+	/**
+	 * Registra uma jogada feita em determinado jogo e pune o Usuario caso a modalidade do jogo nao esteja de acordo.
+	 * Pune de acordo com o tipo de Usuario Se noob/veterano.
+	 * {@link Jogo#registraJogada(int, boolean)}
+	 * @param nomeDoJogo Nome do Jogo.
+	 * @param score Score obtido.
+	 * @param zerou Se zerou.
+	 * @throws Exception Se jogo nao for encontrado.
+	 */
 	
 
 	
@@ -173,6 +211,12 @@ public class Usuario {
 		this.meusJogos = jogos;
 	}
 	
+	/**
+	 * Cada usuario tem uma categoria associado, de duas formas Noob ou veterano.
+	 * Altera a categoria do Usuario de noob para veterano se ele atingir mais de 1000 de x2p.
+	 * @return True se bem sucedido ou false caso nao for possivel realizar a alteracao.
+	 */
+	
 	public boolean upgradeCategoria() {
 		if(this.getX2p() <= 1000) {
 			return false;
@@ -187,6 +231,13 @@ public class Usuario {
 		}
 		return false;
 	}
+	
+	/**
+	 * Rebaixa a categoria do Usuario (de veterano para noob) caso ele esteja com uma quantidade de x2p inferior ou igual a 1000.
+	 * 
+	 * @return True se bem sucedido ou false caso ocorra erro.
+
+	 */
 	
 	private boolean downgradeCategoria() {
 		

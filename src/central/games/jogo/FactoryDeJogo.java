@@ -1,5 +1,12 @@
 package central.games.jogo;
 
+/**
+ *  Classe responsavel por criar as instancias de Jogo.
+ *  
+ * @author Yuri Silva
+ *
+ */
+
 public class FactoryDeJogo {
 	
 	private static final String RPG = "rpg";

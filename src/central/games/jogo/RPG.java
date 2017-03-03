@@ -20,7 +20,7 @@ public class RPG extends Jogo{
 	 * @throws ValidacaoException Se nome for nulo ou vazio e preco for menor que 0.
 	 */
 
-	public RPG(String nome, int preco) throws ValidacaoException {
+	public RPG(String nome, int preco) {
 		super(nome, preco);
 
 	}
